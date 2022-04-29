@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="Models\**" />
+    <Compile Remove="wwwroot\images\**" />
     <Content Remove="Models\**" />
+    <Content Remove="wwwroot\images\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="wwwroot\images\**" />
     <None Remove="Models\**" />
+    <None Remove="wwwroot\images\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,11 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Menu\" />
-    <Folder Include="Pages\Contacts\" />
     <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\images\games\" />
-    <Folder Include="wwwroot\images\rooms\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\bootstrap\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\js\" />

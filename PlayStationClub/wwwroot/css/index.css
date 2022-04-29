@@ -264,18 +264,17 @@ footer {
 
 /****** Rooms ******/
 .page {
+    min-height: 100vh;
     background-image: url("../img/rooms-back.png");
-    background-attachment: fixed;
-    background-position: center;
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
     padding-top: 68px;
-    padding-bottom: 110px;
+    padding-bottom: 44px;
 }
 
 .rooms__title {
-    font-family: 'Alegreya Sans SC',
-        sans-serif;
+    font-family: 'Alegreya Sans SC', sans-serif;
     font-size: 20px;
     font-weight: 400;
     font-style: italic;
@@ -622,14 +621,14 @@ footer {
     overflow: hidden;
 }
 
-.contacts__contact-us {
+.contacts__contact-map {
     background-color: #f7f7f7;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 2.5%;
+    /*padding-top: 2.5%;*/
     flex: 1 1 50%;
-    padding-bottom: 3%;
+    /*padding-bottom: 3%;*/
 }
 
 
@@ -696,7 +695,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 1.5%;
+    padding-bottom: 2.5%;
 }
 
 .contact-info__title {
@@ -710,7 +709,9 @@ footer {
 }
 
 .contact-info__content {
+    padding-top: 10%;
     width: 85%;
+    padding-bottom: 10%;
 }
 
 .contact-info__place {
@@ -761,6 +762,6 @@ footer {
 
 .contact-info__map {
     width: 100%;
-    height: 105px;
+    height: 100%;
     border-radius: 15px;
 }

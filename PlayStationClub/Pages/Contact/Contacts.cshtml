@@ -1,0 +1,61 @@
+﻿@page
+@model PlayStationClub.Pages.Contacts.ContactsModel
+
+@{
+    ViewData["Title"] = "Контакты";
+}
+
+    <div class="contacts">
+    <h3 class="contacts__title">Контакты</h3>
+    <div class="contacts__content">
+        <div class="contacts__contact-info contact-info">
+            <h4 class="contact-info__title">Контактная информация</h4>
+            <div class="contact-info__content">
+                <div class="contact-info__place place">
+                    <div class="place__address">
+                        <h5 class="place__address__title">Адрес:</h5>
+                        <p class="place__address__address">ул. Дерибасовская 12</p>
+                        <p class="place__address__phone">(053) 910-11-10</p>
+                    </div>
+                    <div class="place__schedule">
+                        <h5 class="place__schedule__title">График работы:</h5>
+                        <p class="place__schedule__time">Пн.-Пт. : 8:00 - 22:00</p>
+                        <p class="place__schedule__time">Сб.-Вс. : 9:00 - 00:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contacts__contact-map contact-map">
+            <div class="contact-info__map" id="map">
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuMjtEd8ltByAMs1f440xBZQgCBjOy8mk&callback=initMap&libraries=&v=weekly"
+                        defer>
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            const odessa = {
+                lat: 46.484310,
+                lng: 30.738197
+            };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 16,
+                center: odessa,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: odessa,
+                map: map,
+            });
+        }
+    </script>
+}
