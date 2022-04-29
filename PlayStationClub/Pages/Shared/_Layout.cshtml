@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PlayStationClub</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/index.css" />
+    <title>@ViewData["Title"] - G-STICK</title>
 </head>
 <body>
     <div class="wrapper">
@@ -13,14 +13,14 @@
             <header class="header">
                 <div class="header__content _container">
                     <div class="header__column">
-                        <a href="#" class="header__logo"><img src="~/images/logo.svg width="158" height="48" alt="logo"></a>
+                        <a asp-page="/Index" class="header__logo"><img src="img/logo1.svg" width="158" height="48" alt="logo"></a>
                     </div>
                     <div class="header__column">
                         <div class="header__menu menu">
                             <nav class="menu__body">
                                 <ul class="menu__list">
-                                    <li><a href="room.html" class="menu__link">Комнаты</a></li>
-                                    <li><a href="games.html" class="menu__link">Игротека</a></li>
+                                    <li><a asp-page="/Room/Rooms" class="menu__link">Комнаты</a></li>
+                                    <li><a asp-page="/Game/Games" class="menu__link">Игротека</a></li>
                                     <li><a href="#" class="menu__link">Меню</a></li>
                                     <li><a href="contacts.html" class="menu__link">Контакты</a></li>
                                 </ul>
