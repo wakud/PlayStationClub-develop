@@ -1,4 +1,5 @@
-﻿using PlayStationClub.Areas.Services.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using PlayStationClub.Areas.Services.Interfaces;
 using PlayStationClub.Data;
 using PlayStationClub.Data.Entity;
 using System;

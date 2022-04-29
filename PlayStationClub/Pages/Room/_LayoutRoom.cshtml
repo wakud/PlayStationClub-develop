@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/index.css" />
     <title>@ViewData["Title"]</title>
+
 </head>
 <body>
     <div class="wrapper">
-        <div class="main">
+        <div class="page">
             <header class="header">
                 <div class="header__content _container">
                     <div class="header__column">
@@ -31,13 +32,15 @@
                     </div>
                 </div>
             </header>
-            <div class="main__content _container">
+            <div class="page__content _container">
                 <main role="main" class="pb-3">
                     @RenderBody()
                 </main>
             </div>
         </div>
+        <div class="clr"></div>
     </div>
+
     <footer>
         <div class="footer__content _container">
             <div class="footer__logo"><img src="~/img/logo1.svg" alt="logo"></div>

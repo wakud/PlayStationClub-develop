@@ -1,12 +1,24 @@
 ﻿@page
 @model PlayStationClub.Pages.Room.RoomsModel
+
 @{
-    ViewData["ImagePath"] = "/images/rooms/";
+    ViewData["Title"] = "Rooms - G-STICK";
 }
-@foreach (var room in @Model.Rooms)
-{	 
-<div>
-    <img src="@(ViewData["ImagePath"]+room.Images.First().FileName)"/>
-    <a asp-page="/Room/RoomDetails" asp-route-id="@room.Id">@room.Name</a>
+
+@{
+    ViewData["ImagePath"] = "/img/";
+}
+
+<h3 class="rooms__title">Комнаты</h3>
+
+<div class="rooms">
+    <div class="rooms__list">
+        @foreach (var room in @Model.Rooms)
+        {	 
+            <div class="rooms__room room">
+                <img src="@(ViewData["ImagePath"]+room.Images.First().FileName)"/>
+                <a asp-page="/Room/RoomDetails" asp-route-id="@room.Id" class="room__name stretched-link">@room.Name</a>
+            </div>
+        }
+    </div>
 </div>
-}
