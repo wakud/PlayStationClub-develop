@@ -1,0 +1,765 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    height: 100%;
+    width: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+._container {
+    max-width: 1216px;
+    margin: 0 auto;
+    padding: 0px 20px;
+}
+
+.main {
+    min-height: 100vh;
+    background-image: url("../img/main-back.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 68px;
+    padding-bottom: 44px;
+}
+
+.header__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+}
+
+.header__column {
+    flex: 1 3 20%;
+}
+
+.header__column:nth-child(2) {
+    flex: 3 1 60%;
+}
+
+.header__column:last-child {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header__logo {
+    display: inline-block;
+}
+
+.menu__list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.menu__list>li {
+    display: inline-block;
+    padding: 0 5.5%;
+}
+
+.menu__link {
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 30px;
+    color: #f7f7f7;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.header__sign-in {
+    border-radius: 21px;
+    border: solid 1.2px #d02236;
+    padding: 2px 31px 2px;
+    font-size: 21px;
+    font-weight: 300;
+    line-height: 29px;
+    color: #f7f7f7;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.main__content {
+    display: flex;
+    margin-top: 160px;
+}
+
+.main__content:before {
+    display: inline-block;
+    content: "";
+    width: 5px;
+    height: 330px;
+    border-radius: 2px;
+    background-color: #d94423;
+    margin-right: 1%;
+}
+
+.info__subtitle {
+    font-size: 26px;
+    font-weight: 200;
+    line-height: 34px;
+    color: #f7f7f7;
+    text-transform: uppercase;
+}
+
+.info__title {
+    font-size: 83px;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 108px;
+    letter-spacing: 1.25px;
+    color: #f7f7f7;
+    text-shadow: 0 6px 0 #d94423;
+    text-transform: uppercase;
+    margin: 10px 0 22px 0;
+}
+
+.info__text {
+    font-size: 19px;
+    font-weight: 300;
+    line-height: 34px;
+    letter-spacing: 0.46px;
+    color: #f7f7f7;
+    width: 50%;
+}
+
+.news {
+    min-height: 100vh;
+    background-image: url("../img/news-back.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 42px;
+    padding-bottom: 44px;
+}
+
+.news__lable {
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 55px;
+    color: #f7f7f7;
+    margin-bottom: 50px;
+}
+
+.news__lable:after {
+    display: block;
+    content: "";
+    height: 3px;
+    width: 263px;
+    border-radius: 2px;
+    background-color: #d94423;
+}
+
+.news__list {
+    display: flex;
+}
+
+.news__piece-of-news {
+    flex: 1 1 31.666%;
+    height: 470px;
+    max-width: 370px;
+}
+
+.news__piece-of-news:nth-child(3n-1) {
+    margin: 0 2.5% 0 2.5%;
+}
+
+.piece-of-news {
+    border: solid 0.1px #f7f7f7;
+    background-color: rgb(38, 38, 38, 0.73);
+    padding: 0 25px;
+}
+
+.piece-of-news__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.piece-of-news__subtitle {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 20px;
+    color: #f7f7f7;
+    text-transform: uppercase;
+    align-self: center;
+    margin-top: 21px;
+    margin-bottom: 13px;
+}
+
+.piece-of-news__title {
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 28px;
+    color: #f7f7f7;
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.piece-of-news__text {
+    font-size: 16px;
+    line-height: 20px;
+    color: #f7f7f7;
+    text-overflow: ellipsis;
+}
+
+.news .btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.news__more-btn {
+    display: inline-block;
+}
+
+.clr {
+    height: 64px;
+}
+
+footer {
+    background-color: #0d0d0d;
+    padding-top: 19px;
+    clear: both;
+    margin-top: -64px;
+    height: 64px;
+}
+
+.footer__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer__logo>img {
+    width: 100px;
+    height: 30px;
+}
+
+.footer__copyright {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 19px;
+    color: #bfbfbf;
+}
+
+.social-media__content>img:nth-child(3n-1) {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/****** Rooms ******/
+.page {
+    background-image: url("../img/rooms-back.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 68px;
+    padding-bottom: 110px;
+}
+
+.rooms__title {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 28px;
+    letter-spacing: 3px;
+    color: #f7f7f7;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.rooms__title::after {
+    display: inline-block;
+    content: "";
+    width: 135px;
+    height: 5px;
+    border-radius: 1px;
+    background-color: #d96523;
+    margin-top: -5px;
+}
+
+.rooms__list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rooms__list .room:nth-child(4n) {
+    margin-right: 0;
+}
+
+.room {
+    /*max-width: 23.5%;*/
+    flex: 1 1 22.5%;
+    background-color: #020659;
+    margin-right: 2%;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.room__image {
+    width: 100%;
+}
+
+.room__name {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 42px;
+    color: #f7f7f7;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 10px 0;
+    display: block;
+}
+
+/***** Room Details *****/
+.page__content {
+    margin-top: 64px;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    height: 79%;
+}
+
+.carousel-indicators {
+    position: unset;
+}
+
+.carousel-indicators li {
+    width: 97px;
+    height: 65px;
+}
+
+.room-details {
+    display: flex;
+    justify-content: center;
+}
+
+.room-details__carousel {
+    flex: 1 1 50%;
+    margin-right: 3%;
+}
+
+.room-details__content {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.room-info__title {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 56px;
+    font-style: italic;
+    letter-spacing: 9.75px;
+    color: #f7f7f7;
+    text-shadow: 0 4px 0 #d94423;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    line-height: 91px;
+}
+
+.room-info__text {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 25px;
+    letter-spacing: 0.24px;
+    color: #f7f7f7;
+    width: 78%;
+}
+
+.room-info__player-numbers {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 25px;
+    letter-spacing: 0.24px;
+    color: #f7f7f7;
+}
+
+.room-info__player-numbers>span {
+    background: url("../img/people-icon.svg") right no-repeat;
+    padding: 0 30px 0 0;
+}
+
+.room-info__book-btn {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    background-color: #d02236;
+    width: 170px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #f7f7f7;
+    border-radius: 20px;
+    align-self: center;
+}
+
+
+
+/***** Games *****/
+.games__title {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 28px;
+    letter-spacing: 3px;
+    color: #f7f7f7;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: unset;
+}
+
+.games__title::after {
+    display: inline-block;
+    content: "";
+    width: 135px;
+    height: 5px;
+    border-radius: 1px;
+    background-color: #d96523;
+    margin-top: -5px;
+}
+
+.nav-tabs {
+    border-bottom-color: #bf754b;
+}
+
+.nav-tabs .nav-link {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.7px;
+    color: #f7f7f7;
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+
+.nav-tabs .nav-link.active {
+    color: #d96523;
+    background-color: unset;
+    border: none;
+    border-bottom: solid 3px #d96523;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: #bf754b;
+}
+
+.games-tabs__tabs-list {
+    margin-bottom: 6px;
+}
+
+.games-tabs__game-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.game {
+    max-width: 198px;
+    flex: 1 1 16%;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.game:not(:nth-child(5n)) {
+    margin-right: 4%;
+}
+
+.game__photo {
+    width: 100%;
+}
+
+.game__title {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0.7px;
+    text-align: center;
+    color: #f7f7f7;
+    display: block;
+    margin-top: 4px;
+}
+
+#GameDetailsModal .modal-content {
+    background-color: #4c2c6c;
+}
+
+#GameDetailsModal .modal-header {
+    position: absolute;
+    right: 1px;
+    z-index: 1;
+    border-bottom: unset;
+}
+
+#GameDetailsModal .modal-header>button {
+    color: #f7f7f7;
+}
+
+#GameDetailsModal .modal-body {
+    padding: 1rem 0;
+    margin: 0 1.3rem;
+}
+
+#GameDetailsModal .modal-body__content {
+    display: flex;
+}
+
+.game-details__image {
+    flex: 1 1 30%;
+    margin-right: 3%;
+}
+
+.game-details__content {
+    flex: 1 1 70%;
+}
+
+.game-details__title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 32px;
+    letter-spacing: 0.29px;
+    color: #f7f7f7;
+    text-transform: uppercase;
+}
+
+.game-details__joystick-number,
+.game-details__text {
+    font-size: 15px;
+    line-height: 20px;
+    text-align: left;
+    color: #f7f7f7;
+}
+
+.game-details__text {
+    margin: 1.3rem 0;
+}
+
+.game-details__joystick-number {
+    margin-bottom: unset;
+}
+
+.game-details__joystick-number>span {
+    background: url("../img/joystick-icon.svg") right no-repeat;
+    padding: 0 30px 3px 0;
+}
+
+
+
+/***** Contact Us *****/
+.contacts__title {
+    font-family: 'Alegreya Sans SC',
+        sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 28px;
+    letter-spacing: 3px;
+    color: #f7f7f7;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: unset;
+    margin-bottom: 35px;
+}
+
+.contacts__title::after {
+    display: inline-block;
+    content: "";
+    width: 135px;
+    height: 5px;
+    border-radius: 1px;
+    background-color: #d96523;
+    margin-top: -5px;
+}
+
+.contacts__content {
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.contacts__contact-us {
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2.5%;
+    flex: 1 1 50%;
+    padding-bottom: 3%;
+}
+
+
+.contact-us__title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 35px;
+    letter-spacing: 0.75px;
+    text-align: center;
+    color: #4c2c6c;
+    margin-bottom: 3%;
+}
+
+.contact-us__content {
+    width: 80%;
+    padding-top: 3%;
+}
+
+.contact-us__form .row {
+    margin: 5px 0;
+}
+
+.contact-us__form input {
+    padding-right: 1%;
+    padding-left: 1%;
+    background-color: unset;
+    border: unset;
+    border-bottom: 1px solid #707070;
+    border-radius: unset;
+
+}
+
+.contact-us__form input::placeholder {
+    font-size: 16px;
+    line-height: 35px;
+    letter-spacing: 0.72px;
+    color: #bfbfbf;
+}
+
+.contact-us__form .submit-btn {
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 28px;
+    color: #f7f7f7;
+    background-color: #d94423;
+    border-radius: 21px;
+    padding: 0.219rem 1.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: unset;
+    margin: 0 auto;
+    margin-top: 6.5%;
+}
+
+.contact-us__form .submit-btn:disabled {
+    background-color: lightgrey;
+}
+
+.contacts__contact-info {
+    background-color: rgb(247, 247, 247, 0.28);
+    padding-top: 2.5%;
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1.5%;
+}
+
+.contact-info__title {
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 35px;
+    letter-spacing: 0.7px;
+    text-align: center;
+    color: #f7f7f7;
+    margin-bottom: 4.5%;
+}
+
+.contact-info__content {
+    width: 85%;
+}
+
+.contact-info__place {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 4%;
+}
+
+.place__address {
+    flex: 1 1 50%;
+}
+
+.place__schedule {
+    flex: 1 1 50%;
+    text-align: end;
+}
+
+.place__address>p,
+.place__schedule>p {
+    margin-bottom: unset;
+}
+
+.place__address__title,
+.place__schedule__title {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.36px;
+    color: #f7f7f7;
+}
+
+.place__address__address,
+.place__address__phone {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 35px;
+    letter-spacing: 0.48px;
+    color: #f7f7f7;
+}
+
+.place__schedule__time {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 35px;
+    letter-spacing: 0.48px;
+    color: #f7f7f7;
+}
+
+.contact-info__map {
+    width: 100%;
+    height: 105px;
+    border-radius: 15px;
+}

@@ -1,0 +1,46 @@
+﻿@page "{id}"
+@model PlayStationClub.Pages.Room.RoomDetailsModel
+@{
+    ViewData["ImagePath"] = "/images/rooms/";
+}
+
+@if (Model.Room != null)
+{
+<dl>
+    <dt>Name</dt>
+    <dd>@Model.Room.Name</dd>
+    <dt>Player number</dt>
+    <dd>@Model.Room.PlayersNumber</dd>
+    <dt>Images</dt>
+    <dd>
+        @foreach (var image in Model.Room.Images)
+        {
+            <img src="@(ViewData["ImagePath"] + image.FileName)" />
+        }
+    </dd>
+</dl>
+
+<form asp-page="RoomDetails" asp-page-handler="OrderSession" method="post">
+    <div class="form-group">
+        <label asp-for="Order.Date">Date</label>
+        <input type="date" asp-for="Order.Date" class="form-control" min="@(DateTime.Now.ToString("yyyy-MM-dd"))" max="@(DateTime.Now.AddDays(31).ToString("yyyy-MM-dd"))"/>
+        <span asp-validation-for="Order.Date"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Order.Duration">Duration</label>
+        <input asp-for="Order.Duration" class="form-control" min="1" max="6" value="1" />
+        <span asp-validation-for="Order.Duration"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Order.PlayerNumber">Player number</label>
+        <input asp-for="Order.PlayerNumber" class="form-control" value="1" min="1" max="@(Model.Room.PlayersNumber)" />
+        <span asp-validation-for="Order.PlayerNumber"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="Order.RoomId" value="@(Model.Room.Id)" class="form-control" hidden/>
+    </div>
+    <div id="succcess">
+        <button type="submit" class="btn btn-success">Book</button>
+    </div>
+</form>
+}

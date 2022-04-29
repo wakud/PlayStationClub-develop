@@ -1,0 +1,17 @@
+﻿@model GameViewModel
+@{ 
+    ViewData["ImagePath"] = "/images/games/";
+}
+
+<div>
+    <dl>
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+        <dt>Player number</dt>
+        <dd>@Model.PlayersNumber</dd>
+        <dt>Images</dt>
+        <dd>
+            <img src="@(ViewData["ImagePath"]+Model.Image.FileName)" />
+        </dd>
+    </dl>
+</div>

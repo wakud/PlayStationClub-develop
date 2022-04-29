@@ -1,0 +1,12 @@
+﻿@page
+@model PlayStationClub.Pages.Room.RoomsModel
+@{
+    ViewData["ImagePath"] = "/images/rooms/";
+}
+@foreach (var room in @Model.Rooms)
+{	 
+<div>
+    <img src="@(ViewData["ImagePath"]+room.Images.First().FileName)"/>
+    <a asp-page="/Room/RoomDetails" asp-route-id="@room.Id">@room.Name</a>
+</div>
+}

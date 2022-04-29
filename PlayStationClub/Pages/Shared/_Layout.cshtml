@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PlayStationClub</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <header class="header">
+                <div class="header__content _container">
+                    <div class="header__column">
+                        <a href="#" class="header__logo"><img src="~/images/logo.svg width="158" height="48" alt="logo"></a>
+                    </div>
+                    <div class="header__column">
+                        <div class="header__menu menu">
+                            <nav class="menu__body">
+                                <ul class="menu__list">
+                                    <li><a href="room.html" class="menu__link">Комнаты</a></li>
+                                    <li><a href="games.html" class="menu__link">Игротека</a></li>
+                                    <li><a href="#" class="menu__link">Меню</a></li>
+                                    <li><a href="contacts.html" class="menu__link">Контакты</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="header__column">
+                        <a href="sign-in.html" class="header__sign-in btn">Войти</a>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+        <div class="clr"></div>
+    </div>
+
+    <footer>
+        <div class="footer__content _container">
+            <div class="footer__logo"><img src="~/images/logo.svg" alt="logo"></div>
+            <div class="footer__copyright">© 2020 Copyright Gameplay cyber club. All rights reserved.</div>
+            <div class="footer__social-media social-media">
+                <div class="social-media__content">
+                    <img src="~/images/social-insta.svg" alt="instagram">
+                    <img src="~/images/social-facebook.svg" alt="facebook">
+                    <img src="~/images/social-telegram.svg" alt="telegram">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

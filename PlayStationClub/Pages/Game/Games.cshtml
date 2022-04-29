@@ -1,0 +1,32 @@
+﻿@page
+@model PlayStationClub.Pages.Game.GamesModel
+@{
+    ViewData["ImagePath"] = "/images/games/";
+}
+@foreach (var category in Model.Categories)
+{
+    <h2>@category.Name</h2>
+@foreach (var game in @Model.Games.Where(g=>g.Categories.Any(c=>c.Id==category.Id)))
+{
+    <dl>
+        <dd>
+            <img src="@(ViewData["ImagePath"]+game.Image.FileName)" />
+        </dd>
+    </dl>
+    <a href="#" onclick="GetGameDetails('?handler=GameDetails&id=@(game.Id)')" data-toggle="modal" data-target="#game-details-modal">@(game.Name)</a>
+}
+}
+
+<div class="modal fade" id="game-details-modal" tabindex="-1" aria-labelledby="GameDetailsModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
