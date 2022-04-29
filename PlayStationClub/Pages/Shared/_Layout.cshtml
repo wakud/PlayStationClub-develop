@@ -13,7 +13,7 @@
             <header class="header">
                 <div class="header__content _container">
                     <div class="header__column">
-                        <a asp-page="/Index" class="header__logo"><img src="img/logo1.svg" width="158" height="48" alt="logo"></a>
+                        <a asp-page="/Index" class="header__logo"><img src="~/img/logo1.svg" width="158" height="48" alt="logo"></a>
                     </div>
                     <div class="header__column">
                         <div class="header__menu menu">
@@ -22,7 +22,7 @@
                                     <li><a asp-page="/Room/Rooms" class="menu__link">Комнаты</a></li>
                                     <li><a asp-page="/Game/Games" class="menu__link">Игротека</a></li>
                                     <li><a href="#" class="menu__link">Меню</a></li>
-                                    <li><a href="contacts.html" class="menu__link">Контакты</a></li>
+                                    <li><a asp-page="/Contact/Contacts" class="menu__link">Контакты</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -43,13 +43,13 @@
 
     <footer>
         <div class="footer__content _container">
-            <div class="footer__logo"><img src="~/images/logo.svg" alt="logo"></div>
+            <div class="footer__logo"><img src="~/img/logo1.svg" alt="logo"></div>
             <div class="footer__copyright">© 2020 Copyright Gameplay cyber club. All rights reserved.</div>
             <div class="footer__social-media social-media">
                 <div class="social-media__content">
-                    <img src="~/images/social-insta.svg" alt="instagram">
-                    <img src="~/images/social-facebook.svg" alt="facebook">
-                    <img src="~/images/social-telegram.svg" alt="telegram">
+                    <img src="~/img/social-insta.svg" alt="instagram">
+                    <img src="~/img/social-facebook.svg" alt="facebook">
+                    <img src="~/img/social-telegram.svg" alt="telegram">
                 </div>
             </div>
         </div>
