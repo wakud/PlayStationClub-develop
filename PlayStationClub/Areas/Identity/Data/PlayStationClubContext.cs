@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlayStationClub.Data.Configuration;
 using PlayStationClub.Infrastructure.ViewModels;
+using PlayStationClub.Data.Entity;
 
 namespace PlayStationClub.Data
 {
@@ -24,5 +25,7 @@ namespace PlayStationClub.Data
         }
 
         public DbSet<PlayStationClub.Infrastructure.ViewModels.GameViewModel> GameViewModel { get; set; }
+
+        public DbSet<PlayStationClub.Data.Entity.Game> Game { get; set; }
     }
 }

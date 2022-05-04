@@ -11,8 +11,8 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (res) {
-                    $('#game-details-modal .modal-body').html(res);
-                    $('#game-details-modal').modal('show');
+                    $('#dialogContent').html(res);
+                    $('#GameDetailsModal').modal('show');
                 },
                 error: function (err) {
                     console.log(err)

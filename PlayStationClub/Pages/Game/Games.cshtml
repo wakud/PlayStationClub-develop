@@ -1,50 +1,50 @@
-﻿@page "{id?}"
+﻿@page "{categoryId?}/{gameId?}"
 @model PlayStationClub.Pages.Game.GamesModel
 
 @{
     ViewData["ImagePath"] = "/img/";
     ViewData["Title"] = "Games - G-STICK";
-    int ID = 0;
+    int categoryId = 0;
 }
 
 @foreach (var c in Model.Category)
 {
-    ID = c.Id;
+    categoryId = c.Id;
 }
 
 <div class="games">
     <h3 class="games__title">Игры</h3>
+<!-- Menu -->
     <div class="games__tabs games-tabs">
         <ul class="nav nav-tabs games-tabs__tabs-list" role="tablist">
-
             @foreach (var cat in Model.Categories.OrderBy(c => c.Id))
             {
-                if (cat.Id == ID)
+                if (cat.Id == categoryId)
                 {
                     <li class="nav-item" role="presentation">
-                        <a id="" asp-page="/Game/Games" asp-route-id="@cat.Id" class="nav-link active">@cat.Name</a>
+                        <a asp-page="/Game/Games" asp-route-categoryId="@cat.Id" class="nav-link active">@cat.Name</a>
                     </li>
                 }
                 else
                 {
-
                     <li class="nav-item" role="presentation">
-                        <a asp-page="/Game/Games" asp-route-id="@cat.Id" class="nav-link">@cat.Name</a>
+                        <a asp-page="/Game/Games" asp-route-categoryId="@cat.Id" class="nav-link">@cat.Name</a>
                     </li>
                 }
             }
-            </ul>
+        </ul>
+<!-- Content -->
             <div class="tab-content games-tabs__tabs-content">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="games-tabs__game-list">
-                    @if (ID == 0)
+                    @if (categoryId == 0)
                     {
                         @foreach (var game in @Model.Games)
                         {
                             <div class="game">
                                 <img src="@(ViewData["ImagePath"] + game.Image.FileName)" alt="@game.Image.FileName" />
-                                <a href="#" class="game__title stretched-link" data-toggle="modal"
-                                    data-target="#GameDetailsModal">@Html.DisplayName(game.Name)</a>
+                                <a href="#" class="game__title stretched-link" onclick="GetGameDetails('?handler=GameDetails&gameId=@(game.Id)')" 
+                                    data-toggle="modal" data-target="#game-details-modal">@(game.Name)</a>
                             </div>
                         }
                     }
@@ -54,8 +54,8 @@
                         {
                             <div class="game">
                                 <img src="@(ViewData["ImagePath"] + game.Image.FileName)" alt="@game.Image.FileName" />
-                                <a href="#" class="game__title stretched-link" data-toggle="modal"
-                                    data-target="#GameDetailsModal">@Html.DisplayName(game.Name)</a>
+                                <a href="#" class="game__title stretched-link" onclick="GetGameDetails('?handler=GameDetails&gameId=@(game.Id)')" 
+                                    data-toggle="modal" data-target="#game-details-modal">@(game.Name)</a>
                             </div>
                         }
                     }
@@ -65,3 +65,7 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="GameDetailsModal" tabindex="-1" aria-labelledby="GameDetailsModalLabel" aria-hidden="true">
+    <div id="dialogContent" class="modal-dialog modal-dialog-centered"></div>
+</div>

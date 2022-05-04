@@ -31,5 +31,6 @@ namespace PlayStationClub.Areas.Services
                 .Include(g => g.Categories)
                 .FirstOrDefaultAsync(g => g.Id == id);
         }
+        public async Task<Game> GetGameAsync(int id) => await dbContext.Games.FirstOrDefaultAsync(g => g.Id == id);
     }
 }

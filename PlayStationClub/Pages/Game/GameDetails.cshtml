@@ -1,0 +1,26 @@
+﻿@model PlayStationClub.Infrastructure.ViewModels.GameViewModel
+
+@{
+    ViewData["ImagePath"] = "/img/";
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="modal-body__content game-details">
+            <div class="game-details__image">
+                <img src="@(ViewData["ImagePath"] + Model.Image.FileName)" alt="@Model.Image.FileName">
+            </div>
+            <div class="game-details__content">
+                <h5 class="game-details__title">@Html.DisplayFor(Model => Model.Name)</h5>
+                <p class="game-details__text">@Html.DisplayFor(Model => Model.Description)</p>
+                <p class="game-details__joystick-number">Макс. кол-во джойстиков:
+                    <span>@Html.DisplayFor(Model => Model.PlayersNumber)</span></p>
+            </div>
+        </div>
+    </div>
+</div>
