@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PlayStationClub.Data.Configuration;
+using PlayStationClub.Infrastructure.ViewModels;
 
 namespace PlayStationClub.Data
 {
@@ -21,5 +22,7 @@ namespace PlayStationClub.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<PlayStationClub.Infrastructure.ViewModels.GameViewModel> GameViewModel { get; set; }
     }
 }

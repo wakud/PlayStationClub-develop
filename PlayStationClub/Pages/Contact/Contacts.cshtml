@@ -5,12 +5,12 @@
     ViewData["Title"] = "Контакты";
 }
 
-    <div class="contacts">
+<div class="contacts">
     <h3 class="contacts__title">Контакты</h3>
     <div class="contacts__content">
-        <div class="contacts__contact-info contact-info">
-            <h4 class="contact-info__title">Контактная информация</h4>
+        <div class="contacts__contact-us contact-us">
             <div class="contact-info__content">
+                <h4 class="contact-info__title">Контактная информация</h4>
                 <div class="contact-info__place place">
                     <div class="place__address">
                         <h5 class="place__address__title">Адрес:</h5>
@@ -25,16 +25,19 @@
                 </div>
             </div>
         </div>
-        <div class="contacts__contact-map contact-map">
-            <div class="contact-info__map" id="map">
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuMjtEd8ltByAMs1f440xBZQgCBjOy8mk&callback=initMap&libraries=&v=weekly"
-                        defer>
-                </script>
+        <div class="contacts__contact-info contact-info">
+            <div class="contact-info__content">
+                <div class="contacts__contact-map contact-map">
+                    <div class="contact-info__map" id="map">
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuMjtEd8ltByAMs1f440xBZQgCBjOy8mk&callback=initMap&libraries=&v=weekly"
+                                defer>
+                        </script>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

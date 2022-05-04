@@ -1,32 +1,67 @@
-﻿@page
+﻿@page "{id?}"
 @model PlayStationClub.Pages.Game.GamesModel
+
 @{
-    ViewData["ImagePath"] = "/images/games/";
-}
-@foreach (var category in Model.Categories)
-{
-    <h2>@category.Name</h2>
-@foreach (var game in @Model.Games.Where(g=>g.Categories.Any(c=>c.Id==category.Id)))
-{
-    <dl>
-        <dd>
-            <img src="@(ViewData["ImagePath"]+game.Image.FileName)" />
-        </dd>
-    </dl>
-    <a href="#" onclick="GetGameDetails('?handler=GameDetails&id=@(game.Id)')" data-toggle="modal" data-target="#game-details-modal">@(game.Name)</a>
-}
+    ViewData["ImagePath"] = "/img/";
+    ViewData["Title"] = "Games - G-STICK";
+    int ID = 0;
 }
 
-<div class="modal fade" id="game-details-modal" tabindex="-1" aria-labelledby="GameDetailsModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+@foreach (var c in Model.Category)
+{
+    ID = c.Id;
+}
+
+<div class="games">
+    <h3 class="games__title">Игры</h3>
+    <div class="games__tabs games-tabs">
+        <ul class="nav nav-tabs games-tabs__tabs-list" role="tablist">
+
+            @foreach (var cat in Model.Categories.OrderBy(c => c.Id))
+            {
+                if (cat.Id == ID)
+                {
+                    <li class="nav-item" role="presentation">
+                        <a id="" asp-page="/Game/Games" asp-route-id="@cat.Id" class="nav-link active">@cat.Name</a>
+                    </li>
+                }
+                else
+                {
+
+                    <li class="nav-item" role="presentation">
+                        <a asp-page="/Game/Games" asp-route-id="@cat.Id" class="nav-link">@cat.Name</a>
+                    </li>
+                }
+            }
+            </ul>
+            <div class="tab-content games-tabs__tabs-content">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="games-tabs__game-list">
+                    @if (ID == 0)
+                    {
+                        @foreach (var game in @Model.Games)
+                        {
+                            <div class="game">
+                                <img src="@(ViewData["ImagePath"] + game.Image.FileName)" alt="@game.Image.FileName" />
+                                <a href="#" class="game__title stretched-link" data-toggle="modal"
+                                    data-target="#GameDetailsModal">@Html.DisplayName(game.Name)</a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        @foreach (var game in @Model.GameWithCategory)
+                        {
+                            <div class="game">
+                                <img src="@(ViewData["ImagePath"] + game.Image.FileName)" alt="@game.Image.FileName" />
+                                <a href="#" class="game__title stretched-link" data-toggle="modal"
+                                    data-target="#GameDetailsModal">@Html.DisplayName(game.Name)</a>
+                            </div>
+                        }
+                    }
+                    </div>
+                </div>
             </div>
-            <div class="modal-body"></div>
-        </div>
     </div>
 </div>
+
