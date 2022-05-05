@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Rooms - G-STICK";
-    ViewData["ImagePath"] = "/img/";
+    ViewData["ImagePath"] = "/img/rooms/";
 }
 
 <h3 class="rooms__title">Комнаты</h3>
@@ -13,7 +13,7 @@
         @foreach (var room in @Model.Rooms)
         {	 
             <div class="rooms__room room">
-                <img src="@(ViewData["ImagePath"]+room.Images.First().FileName)"/>
+                <img src="@(ViewData["ImagePath"] + room.Images.FirstOrDefault().FileName)"/>
                 <a asp-page="/Room/RoomDetails" asp-route-id="@room.Id" class="room__name stretched-link">@room.Name</a>
             </div>
         }

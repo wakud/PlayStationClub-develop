@@ -1,25 +1,32 @@
 ﻿@page "{id}"
 @model PlayStationClub.Pages.Room.RoomDetailsModel
+
 @{
     ViewData["ImagePath"] = "/img/rooms/";
+    var maxId = Model.Room.Images.Max(r => r.Id);
 }
 
 @if (Model.Room != null)
 {
     <div class="room-details">
-        <div id="carousel-thumb" class="carousel slide carousel-fade room-details__carousel"
-            data-ride="carousel">
+        <div id="carousel" class="carousel slide carousel-fade room-details__carousel" data-ride="carousel">
             <!--Slides-->
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="~/img/room-photo.png" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="img/room-photo.png" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="img/room-photo.png" alt="Third slide">
-                </div>
+                @foreach (var img in Model.Room.Images.Skip(1).OrderByDescending(g => g.Id))
+                {
+                    if (img.Id == maxId)
+                    {
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="@(ViewData["ImagePath"] + img.FileName)" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="@(ViewData["ImagePath"] + img.FileName)" />
+                        </div>
+                    }
+                }
             </div>
             <!--/.Slides-->
             <!--Controls-->
@@ -33,21 +40,40 @@
             </a>
             <!--/.Controls-->
             <ol class="carousel-indicators">
-                <li data-target="#carousel-thumb" data-slide-to="0" class="active"> <img
-                        class="d-block w-100" src="img/room-photo.png" class="img-fluid"></li>
-                <li data-target="#carousel-thumb" data-slide-to="1"><img class="d-block w-100"
-                        src="img/room-photo.png" class="img-fluid"></li>
-                <li data-target="#carousel-thumb" data-slide-to="2"><img class="d-block w-100"
-                        src="img/room-photo.png" class="img-fluid"></li>
+                @foreach (var img in Model.Room.Images.Skip(1).OrderByDescending(g => g.Id))
+                {
+                    if (img.Id == maxId)
+                    {
+                        <li data-target="#carousel-thumb" data-slide-to="0" class="active"> 
+                            <img class="d-block w-100" src="@(ViewData["ImagePath"] + img.FileName)" />
+                        </li>
+                    }
+                    else
+                    {
+                        <li data-target="#carousel-thumb" data-slide-to="0"> 
+                            <img class="d-block w-100" src="@(ViewData["ImagePath"] + img.FileName)" />
+                        </li>
+                    }
+                }
             </ol>
         </div>
         <div class="room-details__content room-info">
-            <h3 class="room-info__title">Fight lobby</h3>
-            <p class="room-info__text">Серьезная игра требует серьезного подхода. UFC, Assassin’s или
-                бессмертный Mortal Kombat – выбирай то, что хочешь, и играй! 50 дюймовый экран, милитари
-                пуфаны, 4 игрока – ничего лишнего, только суть.</p>
-            <p class="room-info__player-numbers">Макс. кол-во игроков: <span>4</span></p>
+            <h3 class="room-info__title">@Html.DisplayFor(Model => Model.Room.Name)</h3>
+            <p class="room-info__text">@Html.DisplayFor(Model => Model.Room.Description)</p>
+            <p class="room-info__player-numbers">Макс. кол-во игроков: <span>@Html.DisplayFor(Model => Model.Room.PlayersNumber)</span></p>
             <a href="#" class="room-info__book-btn">Забронировать</a>
         </div>
     </div>
 }
+
+<script>
+    $(function () {
+        $('#carousel').carousel({
+            interval: 10000,
+            keyboard: false,
+            pause: 'hover',
+            ride: 'carousel',
+            wrap: false
+        });
+    });
+</script>

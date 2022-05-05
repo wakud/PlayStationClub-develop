@@ -12,6 +12,7 @@ namespace PlayStationClub.Infrastructure.ViewModels
         public string Description { get; set; }
         public byte PlayersNumber { get; set; }
         public decimal Price { get; set; }
+        
         public ICollection<ImageViewModel> Images { get; set; }
     }
 }

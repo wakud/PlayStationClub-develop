@@ -22,7 +22,7 @@ namespace PlayStationClub.Pages.Game
         //add new colections
         public IEnumerable<CategoryViewModel> Category { get; private set; }
         public IEnumerable<GameViewModel> GameWithCategory { get; set; }
-        public GameViewModel SelectedGame { get; set; }
+        public GameViewModel SelectedGame { get; set; } = new();
         //end add
         public GamesModel(IGameService gameService, ICategoryService categoryService, IMapper mapper)
         {
