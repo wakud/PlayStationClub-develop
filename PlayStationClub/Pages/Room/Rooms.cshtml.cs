@@ -26,7 +26,6 @@ namespace PlayStationClub.Pages.Room
         public async Task OnGet()
         {
             Rooms = _mapper.Map<ICollection<RoomViewModel>>(await _roomService.GetAllAsync());
-
         }
     }
 }

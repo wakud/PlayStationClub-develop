@@ -29,13 +29,10 @@ namespace PlayStationClub.Pages.Room
         public async Task OnGet(int id)
         {
             Room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(id));
-            var minId = Room.Images.Min(r => r.Id);
-            Console.WriteLine(minId);
         }
 
         public void OnPostOrderSession()
         {
-
         }
     }
 }

@@ -425,6 +425,22 @@ footer {
     align-self: center;
 }
 
+.room-info__book-btn {
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    background-color: #d02236;
+    width: 170px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #f7f7f7;
+    border-radius: 20px;
+    align-self: center;
+}
+
 
 
 

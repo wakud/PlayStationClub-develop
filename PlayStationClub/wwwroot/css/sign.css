@@ -1,0 +1,188 @@
+html {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: 'IBM Plex Sans', sans-serif;
+    background-color: rgba(0, 0, 0, 0.87);
+    color: #f2f2f2;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.sign {
+    background-color: #4d2f6e;
+    max-width: 386px;
+    width: 28.3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2% 1.6%;
+    min-height: 300px;
+}
+
+.sign__logo {
+    text-align: center;
+    margin-bottom: 6.5%;
+}
+
+    .sign__logo img {
+        width: 60%;
+    }
+/***** Sign In *****/
+.sign-in__form label {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 19px;
+    color: #f2f2f2;
+}
+
+.sign-in__form input {
+    border-radius: 5px;
+    background-color: #5a37a6;
+    border-color: #5a37a6;
+    color: #f2f2f2;
+}
+
+.sign-in__form a {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 16px;
+    color: #f2f2f2;
+}
+
+.sign-in__form button {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 24px;
+    letter-spacing: 0.45px;
+    text-align: center;
+    color: #f2f2f2;
+    border-radius: 10px;
+    background-color: #d94423;
+    width: 100%;
+}
+
+.sign-in__join {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 6%;
+    margin-top: 6%;
+}
+
+.sign-in__join::before {
+    content: "Войти с помощью:";
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 17px;
+    color: #f2f2f2;
+    margin-right: 5px;
+}
+
+.sign-in__join button {
+    margin-right: 10px;
+    background: none;
+    border: none;
+}
+
+.sign-in__join button > img {
+    width: 26px;
+    height: 26px;
+    display: block;
+}
+
+
+.sign-in__sign-up {
+    display: block;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 19px;
+    text-align: center;
+    color: #f2f2f2;
+    text-decoration: underline;
+}
+
+/***** Sign Up *****/
+.sign-up__title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    color: #f2f2f2;
+}
+
+.sign-up__form {
+    margin: 4% auto;
+}
+
+.sign-up__form>.form-row {
+    margin-bottom: 1rem;
+}
+
+.sign-up__form input {
+    border-radius: 5px;
+    background-color: #5a37a6;
+    border-color: #5a37a6;
+    color: #f2f2f2;
+}
+
+.sign-up__form input::placeholder {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 19px;
+    color: #f2f2f2;
+}
+
+.sign-up__form .two-in-row__first input {
+    border-radius: 5px 0 0 5px;
+
+}
+
+.sign-up__form .two-in-row__second input {
+    border-radius: 0px 5px 5px 0px;
+}
+
+.sign-up__form .form-row>.col,
+.sign-up__form .form-row>[class*=col-] {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+.sign-up__form button {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 24px;
+    letter-spacing: 0.45px;
+    text-align: center;
+    color: #f2f2f2;
+    border-radius: 10px;
+    background-color: #d94423;
+    width: 100%;
+}
+
+.sign-up__sign-in {
+    font-size: 14px;
+    line-height: 19px;
+    color: #f2f2f2;
+    text-decoration: underline;
+    display: block;
+    text-align: center;
+}
+
+.sign-up__sign-in::before {
+    content: "Уже есть аккаунт?";
+    font-size: 14px;
+    line-height: 19px;
+    color: #f2f2f2;
+    margin-right: 5px;
+    text-decoration: none;
+    display: inline-block;
+}

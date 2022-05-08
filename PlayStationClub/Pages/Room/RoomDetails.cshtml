@@ -61,7 +61,16 @@
             <h3 class="room-info__title">@Html.DisplayFor(Model => Model.Room.Name)</h3>
             <p class="room-info__text">@Html.DisplayFor(Model => Model.Room.Description)</p>
             <p class="room-info__player-numbers">Макс. кол-во игроков: <span>@Html.DisplayFor(Model => Model.Room.PlayersNumber)</span></p>
-            <a href="#" class="room-info__book-btn">Забронировать</a>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div>
+                <a class="room-info__book-btn" id="login" asp-area="Identity" asp-page="/Account/Login">Войти и забронировать</a>
+                </div>
+            }
+            else
+            {
+                <a href="#" class="room-info__log-btn">Забронировать</a>
+            }
         </div>
     </div>
 }

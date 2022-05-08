@@ -27,7 +27,16 @@
                         </div>
                     </div>
                     <div class="header__column">
-                        <a href="sign-in.html" class="header__sign-in btn">Войти</a>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <a class="header__sign-in btn" id="login" asp-area="Identity" asp-page="/Account/Login">Войти</a>
+                        }
+                        else
+                        {
+                            <div class="header__sign-in">
+                                <label style="margin-right: 1rem"><b>Ви вошли как: @User.Identity.Name</b> </label>
+                            </div>
+                        }
                     </div>
                 </div>
             </header>
