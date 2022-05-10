@@ -27,5 +27,7 @@ namespace PlayStationClub.Data
         public DbSet<PlayStationClub.Infrastructure.ViewModels.GameViewModel> GameViewModel { get; set; }
 
         public DbSet<PlayStationClub.Data.Entity.Game> Game { get; set; }
+
+        public DbSet<PlayStationClub.Data.Entity.Room> Room { get; set; }
     }
 }

@@ -82,12 +82,13 @@ body {
     border-radius: 21px;
     border: solid 1.2px #d02236;
     padding: 2px 31px 2px;
-    font-size: 21px;
+    font-size: 20px;
     font-weight: 300;
     line-height: 29px;
     color: #f7f7f7;
     background-color: transparent;
     text-decoration: none;
+    display: flex;
 }
 
 .main__content {
@@ -261,6 +262,7 @@ footer {
     margin-right: 10px;
 }
 
+
 /****** Rooms ******/
 .page {
     min-height: 100vh;
@@ -409,29 +411,12 @@ footer {
 }
 
 .room-info__book-btn {
-    font-family: 'Alegreya Sans SC',
-        sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 24px;
-    background-color: #d02236;
-    width: 170px;
-    height: 38px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #f7f7f7;
-    border-radius: 20px;
-    align-self: center;
-}
-
-.room-info__book-btn {
     font-family: 'Alegreya Sans SC', sans-serif;
     font-size: 18px;
     font-weight: 600;
     line-height: 24px;
     background-color: #d02236;
-    width: 170px;
+    width: 300px;
     height: 38px;
     display: inline-flex;
     align-items: center;
@@ -440,7 +425,6 @@ footer {
     border-radius: 20px;
     align-self: center;
 }
-
 
 
 
@@ -598,7 +582,6 @@ footer {
 
 
 
-
 /***** Contact Us *****/
 .contacts__title {
     font-family: 'Alegreya Sans SC',
@@ -722,3 +705,48 @@ footer {
     height: 300px;
     border-radius: 15px;
 }
+
+
+/***** Account details *****/
+.acc__title {
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 28px;
+    letter-spacing: 3px;
+    color: #f7f7f7;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: unset;
+    margin-bottom: 35px;
+    border-bottom: solid 3px #d96523;
+}
+
+.nav-item {
+    border-bottom-color: #bf754b;
+}
+
+    .nav-item .nav-link {
+        font-family: 'Alegreya Sans SC', sans-serif;
+        font-size: 18px;
+        line-height: 26px;
+        letter-spacing: 0.7px;
+        color: #f7f7f7;
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+
+        .nav-item .nav-link.active {
+            color: #d96523;
+            background-color: unset;
+            border: none;
+        }
+
+        .nav-item .nav-link:hover {
+            border-color: #bf754b;
+        }

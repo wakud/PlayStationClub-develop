@@ -1,0 +1,76 @@
+﻿@inject UserManager<PlayStationClubUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <title>@ViewData["Title"]</title>
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="page">
+            <header class="header">
+                <div class="header__content _container">
+                    <div class="header__column">
+                        <a asp-page="/Index" class="header__logo"><img src="~/img/logo1.svg" width="158" height="48" alt="logo"></a>
+                    </div>
+                    <div class="header__column">
+                        <div class="header__menu menu">
+                            <nav class="menu__body">
+                                <ul class="menu__list">
+                                    <li><a asp-page="/Room/Rooms" class="menu__link">Комнаты</a></li>
+                                    <li><a asp-page="/Game/Games" class="menu__link">Игротека</a></li>
+                                    <li><a asp-page="/Contact/Contacts" class="menu__link">Контакты</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="header__column">
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </header>
+            <div class="page__content _container">
+                <main role="main" class="pb-3">
+                    <div>
+                        <h3 class="acc__title">Личный кабинет</h3>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3">
+                                <partial name="_ManageNav" />
+                            </div>
+                            <div class="col-md-9">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer__content _container">
+            <div class="footer__logo"><img src="~/img/logo1.svg" alt="logo"></div>
+            <div class="footer__copyright">© 2020 Copyright Gameplay cyber club. All rights reserved.</div>
+            <div class="footer__social-media social-media">
+                <div class="social-media__content">
+                    <img src="~/img/social-insta.svg" alt="instagram">
+                    <img src="~/img/social-facebook.svg" alt="facebook">
+                    <img src="~/img/social-telegram.svg" alt="telegram">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

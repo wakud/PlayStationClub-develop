@@ -1,30 +1,30 @@
 ﻿@page
 @model ExternalLoginModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Регистрация";
 }
 
 <h1>@ViewData["Title"]</h1>
-<h4 id="external-login-title">Associate your @Model.ProviderDisplayName account.</h4>
+<h4 id="external-login-title">Свяжите свою учетную запись с @Model.ProviderDisplayName.</h4>
 <hr />
 
 <p id="external-login-description" class="text-info">
-    You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
-    Please enter contact mobile phone for this site below and click the Register button to finish
-    logging in.
+    Вы успешно прошли аутентификацию в <strong>@Model.ProviderDisplayName</strong>. 
+    Пожалуйста, введите контактный мобильный телефон для этого сайта ниже и нажмите кнопку «Регистрация», 
+    чтобы завершить вход.
 </p>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-10">
         <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input asp-for="Input.Email" class="form-control" hidden />
             <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
+                <label asp-for="Input.PhoneNumber">Телефонный номер: </label>
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Регистрация</button>
         </form>
     </div>
 </div>

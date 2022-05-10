@@ -1,0 +1,41 @@
+﻿@page
+@model PlayStationClub.Areas.Identity.Pages.Account.Manage.SessionsModel
+@{
+    ViewData["Title"] = "Сеансы";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+        <h4 class="text-white-50">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-sm">
+<a class="room-info__book-btn" asp-page="/Room/RoomReservation">Оставить отзыв</a>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+<br />
+
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>ДАТА И ВРЕМЯ</th>
+                    <th>КОМНАТА</th>
+                    <th>ОЦЕНКА</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-light">02.05.2022 пн 19:00</td>
+                    <td class="text-light">Fight Lobby</td>
+                    <td class="text-light">5</td>
+                </tr>
+    </tbody>
+  </table>
+  </div>
+</div>

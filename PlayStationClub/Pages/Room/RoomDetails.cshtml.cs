@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using PlayStationClub.Areas.Services.Interfaces;
 using PlayStationClub.Infrastructure.ViewModels;
 
@@ -29,10 +30,6 @@ namespace PlayStationClub.Pages.Room
         public async Task OnGet(int id)
         {
             Room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(id));
-        }
-
-        public void OnPostOrderSession()
-        {
         }
     }
 }

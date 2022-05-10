@@ -27,17 +27,20 @@ namespace PlayStationClub.Areas.Identity.Pages.Account
         private readonly UserManager<PlayStationClubUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly PlayStationClubDbContext _context;
 
         public RegisterModel(
             UserManager<PlayStationClubUser> userManager,
             SignInManager<PlayStationClubUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            PlayStationClubDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -93,46 +96,63 @@ namespace PlayStationClub.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+            //TODO: добавив пошук телефонів напряму з бази, як зробити через UserManager хйз
+            var phoneInBase = _context.Users.ToList();
+            var dictionary = new Dictionary<string, string>();
+            foreach (var p in phoneInBase)
             {
-                var user = new PlayStationClubUser
+                dictionary.Add(p.PhoneNumber, p.Id);
+            }
+            if (dictionary.ContainsKey(Input.PhoneNumber))
+            {
+                string err = "Такой номер телефона уже зарегистрирован!";
+                ModelState.AddModelError(string.Empty, err);
+                return Page();
+            }
+            else
+            {
+                if (ModelState.IsValid)
                 {
-                    UserName = Input.Email,
-                    Email = Input.Email,
-                    PhoneNumber = Input.PhoneNumber,
-                    FullName = Input.FirstName.Trim().ToLower() + " " + Input.LastName.Trim().ToLower()
-                };
-                var result = await _userManager.CreateAsync(user, Input.Password);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User created a new account with password.");
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Подтверждение электронной почты",
-                        $"Для завершения регистрации перейдите по ссылке: <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>завершить регистрацию</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    var user = new PlayStationClubUser
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
+                        UserName = Input.Email,
+                        Email = Input.Email,
+                        PhoneNumber = Input.PhoneNumber,
+                        FullName = Input.FirstName.Trim().ToLower() + " " + Input.LastName.Trim().ToLower()
+                    };
+
+                    var result = await _userManager.CreateAsync(user, Input.Password);
+                    if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+
+                        _logger.LogInformation("Пользователь создал новую учетную запись с паролем.");
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        var callbackUrl = Url.Page(
+                            "/Account/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                            protocol: Request.Scheme);
+
+                        await _emailSender.SendEmailAsync(Input.Email, "Подтверждение электронной почты",
+                            $"Для завершения регистрации перейдите по ссылке: <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>завершить регистрацию</a>.");
+
+                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        {
+                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
                     }
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, "Такая электронная почта зарегистрирована!");
+                    }
                 }
             }
-
             // If we got this far, something failed, redisplay form
             return Page();
         }

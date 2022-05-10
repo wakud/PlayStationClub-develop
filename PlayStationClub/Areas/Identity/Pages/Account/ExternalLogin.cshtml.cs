@@ -24,17 +24,20 @@ namespace PlayStationClub.Areas.Identity.Pages.Account
         private readonly UserManager<PlayStationClubUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly PlayStationClubDbContext _context;
 
         public ExternalLoginModel(
             SignInManager<PlayStationClubUser> signInManager,
             UserManager<PlayStationClubUser> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            PlayStationClubDbContext context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -124,50 +127,66 @@ namespace PlayStationClub.Areas.Identity.Pages.Account
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
-            if (ModelState.IsValid)
+            //TODO: добавив пошук телефонів напряму з бази, як зробити через UserManager хйз
+            var dictionary = new Dictionary<string, string>();
+            var phoneInBase = _context.Users.ToList();
+            foreach (var p in phoneInBase)
             {
-                var user = new PlayStationClubUser
+                dictionary.Add(p.PhoneNumber, p.Id);
+            }
+            if (dictionary.ContainsKey(Input.PhoneNumber))
+            {
+                string err = "Такой номер телефона уже зарегистрирован!";
+                ModelState.AddModelError(string.Empty, err);
+                return Page();
+            }
+            else
+            {
+                if (ModelState.IsValid)
                 {
-                    UserName = Input.Email,
-                    Email = Input.Email,
-                    FullName = info.Principal.FindFirstValue(ClaimTypes.Name),
-                    PhoneNumber = Input.PhoneNumber
-                };
+                    var user = new PlayStationClubUser
+                    {
+                        UserName = Input.Email,
+                        Email = Input.Email,
+                        FullName = info.Principal.FindFirstValue(ClaimTypes.Name),
+                        PhoneNumber = Input.PhoneNumber
+                    };
 
-                var result = await _userManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await _userManager.AddLoginAsync(user, info);
+                    var result = await _userManager.CreateAsync(user);
                     if (result.Succeeded)
                     {
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-
-                        var userId = await _userManager.GetUserIdAsync(user);
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                        var callbackUrl = Url.Page(
-                            "/Account/ConfirmEmail",
-                            pageHandler: null,
-                            values: new { area = "Identity", userId = userId, code = code },
-                            protocol: Request.Scheme);
-
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                        // If account confirmation is required, we need to show the link if we don't have a real email sender
-                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        result = await _userManager.AddLoginAsync(user, info);
+                        if (result.Succeeded)
                         {
-                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                            _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+
+                            var userId = await _userManager.GetUserIdAsync(user);
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                            var callbackUrl = Url.Page(
+                                "/Account/ConfirmEmail",
+                                pageHandler: null,
+                                values: new { area = "Identity", userId = userId, code = code },
+                                protocol: Request.Scheme);
+
+                            await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                            // If account confirmation is required, we need to show the link if we don't have a real email sender
+                            if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                            {
+                                return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                            }
+
+                            await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+
+                            return LocalRedirect(returnUrl);
                         }
-
-                        await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
-
-                        return LocalRedirect(returnUrl);
                     }
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
 

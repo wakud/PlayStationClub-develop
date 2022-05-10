@@ -60,11 +60,11 @@ namespace PlayStationClub
                 opt.SenderName = Configuration["EmailSender:SendGrid:User"];
             });
 
-            services.AddAuthentication().AddGoogle(options =>
+            services.AddAuthentication().AddGoogle(opt =>
             {
                 IConfigurationSection googleAuthNSection = Configuration.GetSection("Authentication:Google");
-                options.ClientId = googleAuthNSection["ClientId"];
-                options.ClientSecret = googleAuthNSection["ClientSecret"];
+                opt.ClientId = googleAuthNSection["ClientId"];
+                opt.ClientSecret = googleAuthNSection["ClientSecret"];
             });
 
             services.AddScoped<ICategoryService, CategoryService>();

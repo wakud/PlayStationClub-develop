@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PlayStationClub.Data;
@@ -9,9 +10,10 @@ using PlayStationClub.Data;
 namespace PlayStationClub.Areas.Identity.Data.Migrations
 {
     [DbContext(typeof(PlayStationClubContext))]
-    partial class PlayStationClubContextModelSnapshot : ModelSnapshot
+    [Migration("20220510110244_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
