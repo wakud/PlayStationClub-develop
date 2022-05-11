@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{roomId}"
 @model PlayStationClub.Pages.Room.OrderSessionModel
 
 <h4 class="text-white-50">БРОНИРОВАНИЕ СЕАНСА</h4>
@@ -8,19 +8,24 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Session.DateTime" class="control-label">Дата</label>
-                <input asp-for="Session.DateTime" class="form-control" type="date" />
-                <span asp-validation-for="Session.DateTime" class="text-danger"></span>
+                <label class="text-light">Дата</label>
+                <input name="date" class="form-control" type="date" required />
             </div>
             <div class="form-group">
-                <label asp-for="Session.Duration" class="control-label">Длительность</label>
-                <input asp-for="Session.Duration" class="form-control" />
-                <span asp-validation-for="Session.Duration" class="text-danger"></span>
+                <label class="text-light">Длительность</label>
+                @*<input id="duration" name="duration" class="form-control" items="ViewBag.item" required/>*@
+                <select id="duration" name="duration" class="form-control">
+                    <option value="1" selected>1 час</option>
+                    <option value="2" >2 часа</option>
+                    <option value="3" >3 часа</option>
+                    <option value="4" >4 часа</option>
+                    <option value="5" >5 часов</option>
+                    <option value="6" >6 часов</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="Session.DateTime" class="control-label">Время</label>
-                <input asp-for="Session.DateTime" class="form-control" type="time" />
-                <span asp-validation-for="Session.DateTime" class="text-danger"></span>
+                <label class="text-light">Время</label>
+                <input name="time" class="form-control" type="time" required />
             </div>
             <div class="form-group">
                 <input type="submit" value="Забронировать" class="btn btn-danger" />
@@ -31,4 +36,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    let duration[];
+    
+</script>
 }

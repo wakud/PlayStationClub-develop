@@ -69,7 +69,7 @@
             }
             else
             {
-                <a class="room-info__book-btn" asp-page="/Room/OrderSession">Забронировать</a>
+                <a class="room-info__book-btn" asp-page="/Room/OrderSession" asp-route-roomId="@Model.Room.Id">Забронировать</a>
                 @*<a href="#" class="room-info__book-btn" onclick="OrderSession('?handler=OrderSession&Id=@(Model.Room.Id)')" 
                     data-toggle="modal" data-target="#order-session-modal">Забронировать</a>*@
             }

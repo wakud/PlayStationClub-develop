@@ -6,57 +6,59 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using PlayStationClub.Areas.Services.Interfaces;
 using PlayStationClub.Data;
 using PlayStationClub.Data.Entity;
+using PlayStationClub.Infrastructure.ViewModels;
 
 namespace PlayStationClub.Pages.Room
 {
     public class OrderSessionModel : PageModel
     {
         private readonly PlayStationClubDbContext _context;
-
-        public OrderSessionModel(PlayStationClubDbContext context)
+        private readonly ISessionService _sessionService;
+        private readonly IMapper _mapper;
+        public ICollection<OrderViewModel> OrderViews { get; set; }
+        public OrderViewModel OrderViewModel { get; set; }
+        public OrderSessionModel(PlayStationClubDbContext context, IMapper mapper, ISessionService sessionService)
         {
             _context = context;
+            _mapper = mapper;
+            _sessionService = sessionService;
         }
 
         public IActionResult OnGet()
         {
-            //ViewData["PlayStationClubUserId"] = new SelectList(_context.Users, "Id", "Id");
-            //ViewData["ReviewId"] = new SelectList(_context.Reviews, "Id", "Text");
-            //ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description");
             return Page();
         }
 
         [BindProperty]
         public Session Session { get; set; }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int roomId, DateTime date, TimeSpan time, int duration)
         {
-            string userName = User.Identity.Name;
-            var user = _context.Users.FirstOrDefault(x => x.UserName == userName);
-            var sessionId = _context.Sessions.Last();
-
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
-            var session = new Session {
-                Id = sessionId.Id + 1,
-                DateTime = Session.DateTime.Date + Session.DateTime.TimeOfDay,
-                Duration = Session.Duration,
+            string userName = User.Identity.Name;
+            var user = _context.Users.FirstOrDefault(x => x.UserName == userName);
+            DateTime dateTime = date + time;
+            TimeSpan timeSpan = new (duration, 0, 0);
+            var session = new Session
+            {
+                DateTime = dateTime,
+                Duration = timeSpan,
                 PlayerNumber = 1,
-                RoomId = Session.RoomId,
+                RoomId = roomId,
                 PlayStationClubUserId = user.Id,
-                ReviewId = 1
+                ReviewId = null
             };
             _context.Sessions.Add(session);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Rooms");
         }
+        
     }
 }

@@ -34,7 +34,7 @@ namespace PlayStationClub.Pages.Game
         public async Task OnGet(int categoryId, int gameId)
         {
             Categories = _mapper.Map<ICollection<CategoryViewModel>>(await _categoryService.GetAllAsync());
-            Categories.Add(new CategoryViewModel { Id = 0, Name = "Все" }); //add new category "All"
+            Categories.Add(new CategoryViewModel { Id = 0, Name = "Р’СЃРµ" }); //add new category "All"
             Games = _mapper.Map<ICollection<GameViewModel>>(await _gameService.GetAllAsync());
             //add
             Category = _mapper.Map<ICollection<CategoryViewModel>>(await _categoryService.GetAllAsync())
