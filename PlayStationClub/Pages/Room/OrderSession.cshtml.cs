@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using PlayStationClub.Areas.Services.Interfaces;
 using PlayStationClub.Data;
 using PlayStationClub.Data.Entity;
 using PlayStationClub.Infrastructure.ViewModels;
@@ -13,20 +15,20 @@ namespace PlayStationClub.Pages.Room
 {
     public class OrderSessionModel : PageModel
     {
-        private readonly PlayStationClubDbContext _context;
+        private readonly ISessionService _sessionService;
+        private readonly UserManager<PlayStationClubUser> _userManager;
         public IQueryable<Session> Sessions { get; set; }
-        public SessionViewModel SessioViewModel { get; set; }
-        public OrderSessionModel(PlayStationClubDbContext context)
+        public SessionViewModel SessionViewModel { get; set; }
+        public OrderSessionModel(ISessionService sessionService,UserManager<PlayStationClubUser> userManager)
         {
-            _context = context;
+            _sessionService = sessionService;
+            _userManager = userManager;
         }
 
-        public IActionResult OnGet(int roomId)
+        public async Task OnGetAsync(int roomId)
         {
-            //TODO: переробити через сервіси
-            Sessions = _context.Sessions.Where(session => session.RoomId == roomId && session.DateTime >= DateTime.Now);
-            SessioViewModel = new SessionViewModel { RoomId = roomId, Sessions = Sessions.ToList() };
-            return Page();
+            Sessions = await _sessionService.GetAllSessionRoomAsync(roomId);
+            SessionViewModel = new SessionViewModel { RoomId = roomId, Sessions = Sessions.ToList() };
         }
 
         [BindProperty]
@@ -39,10 +41,10 @@ namespace PlayStationClub.Pages.Room
                 return Page();
             }
             string userName = User.Identity.Name;
-            var user = _context.Users.FirstOrDefault(x => x.UserName == userName);
+            var user = _userManager.Users.FirstOrDefault(u => u.UserName == userName);
             DateTime dateTime = date + time;
             TimeSpan timeSpan = new(duration, 0, 0);
-            Session session = new Session
+            Session = new Session
             {
                 DateTime = dateTime,
                 Duration = timeSpan,
@@ -51,8 +53,7 @@ namespace PlayStationClub.Pages.Room
                 PlayStationClubUserId = user.Id,
                 ReviewId = null
             };
-            _context.Sessions.Add(session);
-            await _context.SaveChangesAsync();
+            await _sessionService.CreateAsync(Session);
 
             return RedirectToPage("/Index");
         }

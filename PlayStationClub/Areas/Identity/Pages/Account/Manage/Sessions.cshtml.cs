@@ -23,11 +23,11 @@ namespace PlayStationClub.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public Session Session { get; set; }
 
-        public async Task OnGet()
+        public async Task OnGetAsync()
         {
             string userName = User.Identity.Name;
             var user = _userManager.Users.FirstOrDefault(u => u.UserName == userName);
-            Sessions = await _sessionService.GetAllSessionsUserAsyn(user.Id);
+            Sessions = await _sessionService.GetAllSessionsUserAsync(user.Id);
         }
 
         //відмова від сеансу

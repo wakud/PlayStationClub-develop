@@ -15,10 +15,18 @@ namespace PlayStationClub.Areas.Services
         {
         }
 
-        public async virtual Task<IQueryable<Session>> GetAllSessionsUserAsyn(string userId)
+        //все сесии по юзеру
+        public async virtual Task<IQueryable<Session>> GetAllSessionsUserAsync(string userId)
         {
             return await Task.FromResult(dbContext.Sessions.Include(s => s.Room).Include(s => s.Review)
                 .Where(s => s.PlayStationClubUserId == userId));
+        }
+        
+        //все сеии по комнате
+        public async virtual Task<IQueryable<Session>> GetAllSessionRoomAsync(int roomId)
+        {
+            return await Task.FromResult(dbContext.Sessions.Include(s => s.Room).Include(s => s.Review)
+                .Where(s => s.RoomId == roomId && s.DateTime >= DateTime.Now));
         }
     }
 }
