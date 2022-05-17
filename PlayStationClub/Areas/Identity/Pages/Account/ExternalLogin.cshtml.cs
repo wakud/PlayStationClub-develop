@@ -24,20 +24,17 @@ namespace PlayStationClub.Areas.Identity.Pages.Account
         private readonly UserManager<PlayStationClubUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
-        private readonly PlayStationClubDbContext _context;
 
         public ExternalLoginModel(
             SignInManager<PlayStationClubUser> signInManager,
             UserManager<PlayStationClubUser> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender,
-            PlayStationClubDbContext context)
+            IEmailSender emailSender)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
             _emailSender = emailSender;
-            _context = context;
         }
 
         [BindProperty]
@@ -127,14 +124,8 @@ namespace PlayStationClub.Areas.Identity.Pages.Account
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
-            //TODO: добавив пошук телефонів напряму з бази, як зробити через UserManager хйз
-            var dictionary = new Dictionary<string, string>();
-            var phoneInBase = _context.Users.ToList();
-            foreach (var p in phoneInBase)
-            {
-                dictionary.Add(p.PhoneNumber, p.Id);
-            }
-            if (dictionary.ContainsKey(Input.PhoneNumber))
+            var userPhone =  _userManager.Users.FirstOrDefault(u => u.PhoneNumber == Input.PhoneNumber);
+            if (userPhone != null)
             {
                 string err = "Такой номер телефона уже зарегистрирован!";
                 ModelState.AddModelError(string.Empty, err);

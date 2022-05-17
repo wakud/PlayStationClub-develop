@@ -22,7 +22,8 @@ namespace PlayStationClub.Areas.Identity.Pages.Account
         private readonly SignInManager<PlayStationClubUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<PlayStationClubUser> signInManager, 
+        public LoginModel(
+            SignInManager<PlayStationClubUser> signInManager, 
             ILogger<LoginModel> logger,
             UserManager<PlayStationClubUser> userManager)
         {
@@ -55,13 +56,13 @@ namespace PlayStationClub.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl)
+
+        public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
-
             returnUrl ??= Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
@@ -74,10 +75,8 @@ namespace PlayStationClub.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
-
+            returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout

@@ -43,7 +43,7 @@ namespace PlayStationClub.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "Новый email")]
+            [Display(Name = "New email")]
             public string NewEmail { get; set; }
         }
 
@@ -97,15 +97,14 @@ namespace PlayStationClub.Areas.Identity.Pages.Account.Manage
                     values: new { userId = userId, email = Input.NewEmail, code = code },
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
-                    Input.NewEmail,
-                    "Подтвердите ваш адрес электронной почты",
-                    $"Подтвердите свою учетную запись, <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>щелкнув здесь</a>.");
+                    Input.NewEmail, "Confirm your email",
+                    $"Please confirm your account by, <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                StatusMessage = "Ссылка для подтверждения изменения электронной почты отправлена. Пожалуйста, проверьте свою электронную почту.";
+                StatusMessage = "Confirmation link to change email sent. Please check your email.";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Ваш адрес электронной почты не изменился.";
+            StatusMessage = "Your email is unchanged.";
             return RedirectToPage();
         }
 
@@ -134,10 +133,10 @@ namespace PlayStationClub.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Подтвердите ваш адрес электронной почты",
-                $"Подтвердите свою учетную запись, <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>щелкнув здесь</a>.");
+                "Confirm your email",
+                $"Please confirm your account by, <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            StatusMessage = "Письмо с подтверждением отправлено. Пожалуйста, проверьте свою электронную почту.";
+            StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();
         }
     }

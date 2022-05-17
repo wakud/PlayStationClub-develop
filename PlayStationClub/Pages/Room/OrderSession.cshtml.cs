@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using PlayStationClub.Areas.Services.Interfaces;
 using PlayStationClub.Data;
 using PlayStationClub.Data.Entity;
 using PlayStationClub.Infrastructure.ViewModels;
@@ -16,26 +14,25 @@ namespace PlayStationClub.Pages.Room
     public class OrderSessionModel : PageModel
     {
         private readonly PlayStationClubDbContext _context;
-        private readonly ISessionService _sessionService;
-        private readonly IMapper _mapper;
-        public ICollection<OrderViewModel> OrderViews { get; set; }
-        public OrderViewModel OrderViewModel { get; set; }
-        public OrderSessionModel(PlayStationClubDbContext context, IMapper mapper, ISessionService sessionService)
+        public IQueryable<Session> Sessions { get; set; }
+        public SessionViewModel SessioViewModel { get; set; }
+        public OrderSessionModel(PlayStationClubDbContext context)
         {
             _context = context;
-            _mapper = mapper;
-            _sessionService = sessionService;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int roomId)
         {
+            //TODO: переробити через сервіси
+            Sessions = _context.Sessions.Where(session => session.RoomId == roomId && session.DateTime >= DateTime.Now);
+            SessioViewModel = new SessionViewModel { RoomId = roomId, Sessions = Sessions.ToList() };
             return Page();
         }
 
         [BindProperty]
         public Session Session { get; set; }
 
-        public async Task<IActionResult> OnPostAsync(int roomId, DateTime date, TimeSpan time, int duration)
+        public async Task<IActionResult> OnPostAsync(DateTime date, int duration, TimeSpan time, int roomId)
         {
             if (!ModelState.IsValid)
             {
@@ -44,8 +41,8 @@ namespace PlayStationClub.Pages.Room
             string userName = User.Identity.Name;
             var user = _context.Users.FirstOrDefault(x => x.UserName == userName);
             DateTime dateTime = date + time;
-            TimeSpan timeSpan = new (duration, 0, 0);
-            var session = new Session
+            TimeSpan timeSpan = new(duration, 0, 0);
+            Session session = new Session
             {
                 DateTime = dateTime,
                 Duration = timeSpan,
@@ -57,8 +54,7 @@ namespace PlayStationClub.Pages.Room
             _context.Sessions.Add(session);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Rooms");
+            return RedirectToPage("/Index");
         }
-        
     }
 }

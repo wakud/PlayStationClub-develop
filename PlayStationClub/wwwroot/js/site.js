@@ -12,7 +12,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (res) {
                     $('#dialogContent').html(res);
-                    $('#GameDetailsModal').modal('show');
+                    $('#Modal').modal('show');
                 },
                 error: function (err) {
                     console.log(err)

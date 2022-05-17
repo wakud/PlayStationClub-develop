@@ -8,5 +8,6 @@ namespace PlayStationClub.Areas.Services.Interfaces
 {
     public interface ISessionService : IService<Session>
     {
+        Task<IQueryable<Session>> GetAllSessionsUserAsyn(string userId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using PlayStationClub.Areas.Services.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using PlayStationClub.Areas.Services.Interfaces;
 using PlayStationClub.Data;
 using PlayStationClub.Data.Entity;
 using System;
@@ -12,7 +13,12 @@ namespace PlayStationClub.Areas.Services
     {
         public SessionService(PlayStationClubDbContext context):base(context)
         {
+        }
 
+        public async virtual Task<IQueryable<Session>> GetAllSessionsUserAsyn(string userId)
+        {
+            return await Task.FromResult(dbContext.Sessions.Include(s => s.Room).Include(s => s.Review)
+                .Where(s => s.PlayStationClubUserId == userId));
         }
     }
 }

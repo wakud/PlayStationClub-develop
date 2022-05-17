@@ -35,12 +35,6 @@ namespace PlayStationClub
             services.AddDbContext<PlayStationClubContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("GstickDb")));
 
-            //MS SQL connected
-            //services.AddDbContext<PlayStationClubDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("GstickDb")));
-            //services.AddDbContext<PlayStationClubContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("GstickDb")));
-
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<PlayStationClubUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<PlayStationClubContext>();

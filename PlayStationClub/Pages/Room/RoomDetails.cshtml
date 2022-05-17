@@ -63,49 +63,26 @@
             <p class="room-info__player-numbers">Макс. кол-во игроков: <span>@Html.DisplayFor(Model => Model.Room.PlayersNumber)</span></p>
             @if (!User.Identity.IsAuthenticated)
             {
-                <a class="room-info__book-btn" id="login" asp-area="Identity" asp-page="/Account/Login">
-                    Войти и забронировать
+                <a class="room-info__book-btn" id="login" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@HttpContext.Request.Path">
+                    Забронировать
                 </a>
             }
             else
             {
                 <a class="room-info__book-btn" asp-page="/Room/OrderSession" asp-route-roomId="@Model.Room.Id">Забронировать</a>
-                @*<a href="#" class="room-info__book-btn" onclick="OrderSession('?handler=OrderSession&Id=@(Model.Room.Id)')" 
+@*                <a href="#" class="room-info__book-btn" onclick="GetGameDetails('?handler=OrderSession&roomId=@(Model.Room.Id)')" 
                     data-toggle="modal" data-target="#order-session-modal">Забронировать</a>*@
             }
         </div>
     </div>
 }
 
-<!-- Modal RoomReservation -->
-<div id="OrderSessionModal" class="modal fade" tabindex="-1" aria-labelledby="OrderSessionModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="GameDetailsModalLabel" aria-hidden="true">
     <div id="dialogContent" class="modal-dialog modal-dialog-centered"></div>
 </div>
 
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        $(document).ready(function () {
-        OrderSession = (url) => {
-            try {
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    contentType: false,
-                    processData: false,
-                    success: function (res) {
-                        $('#dialogContent').html(res);
-                        $('#OrderSessionModal').modal('show');
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    }
-                })
-                return false;
-            } catch (ex) {
-                console.log(ex)
-            }
-        }
-    });
-    </script>
 }

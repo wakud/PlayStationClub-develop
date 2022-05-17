@@ -16,6 +16,7 @@ namespace PlayStationClub.Infrastructure
             CreateMap<Room, RoomViewModel>().ReverseMap();
             CreateMap<Category, CategoryViewModel>().ReverseMap();
             CreateMap<Game, GameViewModel>().ReverseMap();
+            CreateMap<Session, SessionViewModel>().ReverseMap();
         }
     }
 }

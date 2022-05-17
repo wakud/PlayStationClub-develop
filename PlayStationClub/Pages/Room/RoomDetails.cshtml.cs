@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using PlayStationClub.Areas.Services.Interfaces;
+using PlayStationClub.Data;
+using PlayStationClub.Data.Entity;
 using PlayStationClub.Infrastructure.ViewModels;
 
 namespace PlayStationClub.Pages.Room
@@ -15,12 +17,10 @@ namespace PlayStationClub.Pages.Room
     {
         private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
-
         public RoomViewModel Room { get; set; }
-
         [BindProperty]
         public OrderViewModel Order { get; set; }
-
+        public ICollection<OrderViewModel> OrderViews { get; set; }
         public RoomDetailsModel(IRoomService roomService, IMapper mapper)
         {
             _roomService = roomService;

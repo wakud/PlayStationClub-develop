@@ -17,7 +17,7 @@ namespace PlayStationClub.Pages.Room
         private readonly IMapper _mapper;
         public ICollection<RoomViewModel> Rooms { get; set; }
 
-        public RoomsModel(IRoomService roomService, IMapper mapper, PlayStationClubDbContext context)
+        public RoomsModel(IRoomService roomService, IMapper mapper)
         {
             _roomService = roomService;
             _mapper = mapper;
