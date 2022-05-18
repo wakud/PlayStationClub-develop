@@ -28,5 +28,11 @@ namespace PlayStationClub.Areas.Services
             return await Task.FromResult(dbContext.Sessions.Include(s => s.Room).Include(s => s.Review)
                 .Where(s => s.RoomId == roomId && s.DateTime >= DateTime.Now));
         }
+
+        public override async Task UpdateAsync(Session entity)
+        {
+            dbContext.Sessions.Attach(entity);
+            await dbContext.SaveChangesAsync();
+        }
     }
 }

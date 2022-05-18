@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+<meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+<meta name="msvalidate.01" content="8BAB7574F2CFB135874093D7FC22CA9A" />
+<title>ERROR - CDNPKG</title>
+<meta name="description" content="CDNPKG: find and compare your js, css ... web assets through all CDN (content delivery networks)." />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href="/css/site.css" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7060101480658586" crossorigin="anonymous"></script>
+<link rel="canonical" href="https://www.cdnpkg.com/download/jqueryui/1.12.1/ui-icons_444444_256x240.png">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1016076-26"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1016076-26');
+</script>
+</head>
+<body class="Site">
+<div class="Site-header">
+<div class="eyecatcher"></div>
+<div class="ui stackable borderless main menu">
+<div class="ui container">
+<a href="/" class="header item">
+<i class=""></i>&nbsp; CDNPKG .com
+</a>
+<form class="header item" action="/-/search">
+<div class="ui icon large input">
+<input type="text" name="q" value="" placeholder="Search file, library...">
+<i class="search icon"></i>
+</div>
+<input type="hidden" name="t" value="lib">
+</form>
+</div>
+</div>
+<div class="eyecatcherbottom"></div> </div>
+<div class="Site-content ui container">
+<div>
+<h1 class="ui dividing header">Oops ...</h1>
+<p class="ui message">An error just occurred ... The admin has just been notified of this issue ! </p>
+</div>
+</div>
+<div class="Site-footer">
+<div class="ui inverted vertical footer segment" style="margin-top: 50px;">
+<div class="ui container stackable grid">
+<div class="three wide column ">
+<div class="ui inverted link list">
+<div class="item"><a href="/p/privacy-policy">Privacy</a></div>
+<div class="item"><a href="/p/terms-conditions">Terms</a></div>
+<div class="item"><a href="/p/contact">Contact</a></div>
+</div>
+</div>
+<div class="three wide column ">
+<div class="ui inverted link list">
+<div class="item"><a style="color:rgba(255,255,255,.9);" href="https://github.com/cdnpkg/cdnpkg.com" target="_blank"><i class="github icon"></i> Github</a></div>
+<div class="item"><a style="color:rgba(255,255,255,.9);" href="https://twitter.com/cdnpkg" target="_blank"><i class="twitter icon"></i> Twitter</a></div>
+</div>
+</div>
+</div>
+<div class="ui container center aligned">
+<div id="footer"><small>Copyright 2022 - cdnpkg.com</small></div>
+</div>
+</div>
+</div>
+<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"70cf5f3aca1d92cf","version":"2021.12.0","r":1,"token":"376a5e8f43524ef3b748bc33d2d3c1a9","si":100}' crossorigin="anonymous"></script>
+</body>
+</html>

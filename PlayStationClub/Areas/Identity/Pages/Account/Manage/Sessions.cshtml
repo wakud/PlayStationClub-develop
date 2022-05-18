@@ -2,8 +2,34 @@
 @model PlayStationClub.Areas.Identity.Pages.Account.Manage.SessionsModel
 @{
     ViewData["Title"] = "Сеансы";
-    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+    ViewData["ActivePage"] = PlayStationClub.Areas.Identity.Pages.Account.Manage.ManageNavPages.TwoFactorAuthentication;
 }
+@*TODO: перенести в стилі*@
+<style>
+.btn-outline-danger {
+        color: #fff;
+        background-color: #D02236;
+        border-color: #D02236
+    }
+
+    .btn-outline-danger:hover {
+        color: #fff;
+        background-color: #870B19;
+        border-color: #870B19;
+    }
+
+    .btn-outline-primary {
+        color: #fff;
+        background-color: #5A37A6;
+        border-color: #5A37A6;
+    }
+
+    .btn-outline-primary:hover {
+        color: #fff;
+        background-color: #4D2F6E;
+        border-color: #4D2F6E;
+    }
+</style>
 
 <div class="container">
   <div class="row">
@@ -11,7 +37,6 @@
         <h4 class="text-white-50">@ViewData["Title"]</h4>
     </div>
     <div class="col-sm">
-        <a class="room-info__book-btn" asp-page="LeaveFeedback">Оставить отзыв</a>
     </div>
     <div class="col-sm">
     </div>
@@ -93,18 +118,15 @@
                         {
                             <td class="text-light">
                                 <form method="post">
-                                    <input type="submit" value="Отменить" asp-route-id="@item.Id" class="btn btn-danger" />
+                                    <input type="submit" value="Отменить" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm" />
                                 </form>
                             </td>
                         }
                         else
                         {
                             <td class="text-light">
-                                <img src="~/img/star-svgrepo-com.svg" />
-                                <img src="~/img/star-svgrepo-com.svg" />
-                                <img src="~/img/star-svgrepo-com.svg" />
-                                <img src="~/img/star-svgrepo-com.svg" />
-                                <img src="~/img/star-svgrepo-com.svg" />
+                                <a href="#" class="btn btn-outline-primary btn-sm" onclick="GetGameDetails('?handler=Review&sessionId=@(item.Id)')" 
+                                    data-toggle="modal" data-target="#order-session-modal">Оставить отзыв</a>
                             </td>
                         }
                     </tr>
@@ -113,3 +135,13 @@
   </table>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="GameDetailsModalLabel" aria-hidden="true">
+    <div id="dialogContent" class="modal-dialog modal-dialog-centered"></div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
