@@ -17,28 +17,28 @@ namespace PlayStationClub.Data.Configuration
             builder.Property(s => s.Description).IsRequired();
             builder.Property(s => s.Price).IsRequired();
 
-            builder.HasData(
-                new Service
-                {
-                    Id = 1,
-                    Name = "s1",
-                    Description = "d1",
-                    Price = 10
-                },
-                new Service
-                {
-                    Id = 2,
-                    Name = "s2",
-                    Description = "d2",
-                    Price = 20
-                },
-                new Service
-                {
-                    Id = 3,
-                    Name = "s3",
-                    Description = "d3",
-                    Price = 30
-                });
+            //builder.HasData(
+            //    new Service
+            //    {
+            //        Id = 1,
+            //        Name = "s1",
+            //        Description = "d1",
+            //        Price = 10
+            //    },
+            //    new Service
+            //    {
+            //        Id = 2,
+            //        Name = "s2",
+            //        Description = "d2",
+            //        Price = 20
+            //    },
+            //    new Service
+            //    {
+            //        Id = 3,
+            //        Name = "s3",
+            //        Description = "d3",
+            //        Price = 30
+            //    });
         }
     }
 }

@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PlayStationClub.Data;
 
-namespace PlayStationClub.Areas.Identity.Data.Migrations
+namespace PlayStationClub.Data.Migrations
 {
-    [DbContext(typeof(PlayStationClubContext))]
-    [Migration("20220510110244_init")]
+    [DbContext(typeof(PlayStationClubDbContext))]
+    [Migration("20220519192210_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.16")
+                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("CategoryGame", b =>
@@ -34,6 +34,33 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                     b.HasIndex("GamesId");
 
                     b.ToTable("CategoryGame");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoriesId = 1,
+                            GamesId = 1
+                        },
+                        new
+                        {
+                            CategoriesId = 2,
+                            GamesId = 3
+                        },
+                        new
+                        {
+                            CategoriesId = 2,
+                            GamesId = 4
+                        },
+                        new
+                        {
+                            CategoriesId = 3,
+                            GamesId = 2
+                        },
+                        new
+                        {
+                            CategoriesId = 3,
+                            GamesId = 5
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -178,11 +205,30 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "fight"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "sport"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "adventure"
+                        });
                 });
 
             modelBuilder.Entity("PlayStationClub.Data.Entity.Game", b =>
@@ -193,23 +239,70 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("ImageId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<byte>("PlayersNumber")
-                        .HasColumnType("smallint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((byte)1);
 
                     b.HasKey("Id");
 
                     b.HasIndex("ImageId")
                         .IsUnique();
 
-                    b.ToTable("Game");
+                    b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Новая часть культового файтинга Мортал Комбат, с привычной механикой но множеством нововведений. По мимо новых механик вас ждет обновленная графика и новые персонажи. В остальном это старый добрый МК приходи делать фаталити друзьям.",
+                            ImageId = 1,
+                            Name = "mortal kombat 11",
+                            PlayersNumber = (byte)2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Ну тут опис гри CyberPunk бла-бла-бла ...",
+                            ImageId = 6,
+                            Name = "CyberPunk",
+                            PlayersNumber = (byte)10
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Ну тут опис гри FIFA2020 бла-бла-бла ...",
+                            ImageId = 9,
+                            Name = "FIFA2020",
+                            PlayersNumber = (byte)2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Ну тут опис гри NinjaWarrior бла-бла-бла ...",
+                            ImageId = 8,
+                            Name = "NinjaWarrior",
+                            PlayersNumber = (byte)4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Ну тут опис гри IceAge бла-бла-бла ...",
+                            ImageId = 7,
+                            Name = "IceAge",
+                            PlayersNumber = (byte)2
+                        });
                 });
 
             modelBuilder.Entity("PlayStationClub.Data.Entity.Image", b =>
@@ -220,6 +313,7 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("FileName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("RoomId")
@@ -227,9 +321,81 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FileName")
+                        .IsUnique();
+
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FileName = "game-mortal-kombat.svg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FileName = "photo-fight.png",
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FileName = "photo-sports.png",
+                            RoomId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FileName = "photo-race.png",
+                            RoomId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FileName = "photo-team.png",
+                            RoomId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FileName = "ciberpunk.jpg"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FileName = "IceAge.png"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FileName = "NinjaWarrior.jpg"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FileName = "Pes2020.jpg"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FileName = "MK-11-Aftermath.jpg",
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            FileName = "MK-11-Aftermath-10.jpg",
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            FileName = "MK-11-Aftermath-12.jpg",
+                            RoomId = 1
+                        });
                 });
 
             modelBuilder.Entity("PlayStationClub.Data.Entity.Review", b =>
@@ -246,11 +412,29 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Text")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Review");
+                    b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Rating = (byte)5,
+                            ReceivedDate = new DateTime(2022, 3, 5, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            Text = "text1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Rating = (byte)2,
+                            ReceivedDate = new DateTime(2022, 3, 8, 19, 22, 0, 0, DateTimeKind.Unspecified),
+                            Text = "text2"
+                        });
                 });
 
             modelBuilder.Entity("PlayStationClub.Data.Entity.Room", b =>
@@ -261,20 +445,59 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<byte>("PlayersNumber")
-                        .HasColumnType("smallint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((byte)1);
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Room");
+                    b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Серьезная игра требует серьезного подхода. UFC, Assassin’s или бессмертный Mortal Kombat – выбирай то, что хочешь, и играй! 50 дюймовый экран, милитари пуфаны, 4 игрока – ничего лишнего, только суть.",
+                            Name = "fight lobby",
+                            PlayersNumber = (byte)4,
+                            Price = 90m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Удобные пуфики, атмосфера, друзья – что еще нужно? Хочешь больше? У нас есть напитки и закуски, а также многообразие вкусного табака для кальяна. Прекрасный отдых и качественную игру мы тебе гарантируем. Правило “кратность двум” - цена на комнату зависит от количества человек. Если вы играете двумя джойстиками, но вас, например шестеро, вы будете запущены на 3 джойстика Признайся, что может быть лучше футбола и пива в хорошей компании? Разве что очки виртуальной реальности с реально крутыми играми.",
+                            Name = "sport lobby",
+                            PlayersNumber = (byte)10,
+                            Price = 165m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Просторная комната с громки звуком стопроцентно подарят ощущение переполненного стадиона на твоем концерте. Кстати, ты можешь выбрать и любую другую игру, как-никак, хозяин Ferrari сам себе устанавливает правила. А еще мы предложим тебе приличный ассортимент напитков и внушительный перечень кальянов. Что еще круче – ты можешь заказать очки виртуальной реальности с классной подборкой игр. Здесь все для твоего удовольствия!",
+                            Name = "race lobby",
+                            PlayersNumber = (byte)6,
+                            Price = 120m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Идеальное место для твоей тусовки! Стильный интерьер, комфортные бинбэги, проектор Full HD и объемный звук 5.1 – все это гарантия настоящего удовольствия. Кроме того, у нас есть напитки и закуски на выбор. Вы можете заказать кальян на любой вкус прямо в комнату, что сделает отдых еще приятней. Хочешь больше драйва? Закажи в комнату Guitar Hero. Еще больше? Закажи виртуальную реальность – у нас широкая подборка игр. Тебе точно понравится!",
+                            Name = "team lobby",
+                            PlayersNumber = (byte)15,
+                            Price = 220m
+                        });
                 });
 
             modelBuilder.Entity("PlayStationClub.Data.Entity.Service", b =>
@@ -285,17 +508,20 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Service");
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("PlayStationClub.Data.Entity.Session", b =>
@@ -315,7 +541,9 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte>("PlayerNumber")
-                        .HasColumnType("smallint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((byte)1);
 
                     b.Property<int?>("ReviewId")
                         .HasColumnType("integer");
@@ -332,7 +560,7 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Session");
+                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("PlayStationClub.Data.PlayStationClubUser", b =>
@@ -400,67 +628,6 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("PlayStationClub.Infrastructure.ViewModels.CategoryViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("GameViewModelId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameViewModelId");
-
-                    b.ToTable("CategoryViewModel");
-                });
-
-            modelBuilder.Entity("PlayStationClub.Infrastructure.ViewModels.GameViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<int>("ImageId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<byte>("PlayersNumber")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
-
-                    b.ToTable("GameViewModel");
-                });
-
-            modelBuilder.Entity("PlayStationClub.Infrastructure.ViewModels.ImageViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ImageViewModel");
                 });
 
             modelBuilder.Entity("ServiceSession", b =>
@@ -549,7 +716,7 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                     b.HasOne("PlayStationClub.Data.Entity.Image", "Image")
                         .WithOne("Game")
                         .HasForeignKey("PlayStationClub.Data.Entity.Game", "ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Image");
@@ -559,7 +726,8 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                 {
                     b.HasOne("PlayStationClub.Data.Entity.Room", "Room")
                         .WithMany("Images")
-                        .HasForeignKey("RoomId");
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Room");
                 });
@@ -568,16 +736,18 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                 {
                     b.HasOne("PlayStationClub.Data.PlayStationClubUser", "PlayStationClubUser")
                         .WithMany("Sessions")
-                        .HasForeignKey("PlayStationClubUserId");
+                        .HasForeignKey("PlayStationClubUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PlayStationClub.Data.Entity.Review", "Review")
                         .WithOne("Session")
-                        .HasForeignKey("PlayStationClub.Data.Entity.Session", "ReviewId");
+                        .HasForeignKey("PlayStationClub.Data.Entity.Session", "ReviewId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("PlayStationClub.Data.Entity.Room", "Room")
                         .WithMany("Sessions")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("PlayStationClubUser");
@@ -585,24 +755,6 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
                     b.Navigation("Review");
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("PlayStationClub.Infrastructure.ViewModels.CategoryViewModel", b =>
-                {
-                    b.HasOne("PlayStationClub.Infrastructure.ViewModels.GameViewModel", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("GameViewModelId");
-                });
-
-            modelBuilder.Entity("PlayStationClub.Infrastructure.ViewModels.GameViewModel", b =>
-                {
-                    b.HasOne("PlayStationClub.Infrastructure.ViewModels.ImageViewModel", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("ServiceSession", b =>
@@ -640,11 +792,6 @@ namespace PlayStationClub.Areas.Identity.Data.Migrations
             modelBuilder.Entity("PlayStationClub.Data.PlayStationClubUser", b =>
                 {
                     b.Navigation("Sessions");
-                });
-
-            modelBuilder.Entity("PlayStationClub.Infrastructure.ViewModels.GameViewModel", b =>
-                {
-                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }

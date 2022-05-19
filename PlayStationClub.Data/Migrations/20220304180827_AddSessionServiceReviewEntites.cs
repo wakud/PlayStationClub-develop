@@ -113,50 +113,6 @@ namespace PlayStationClub.Data.Migrations
                     { 2, (byte)2, "text2" }
                 });
 
-            migrationBuilder.InsertData(
-                table: "Services",
-                columns: new[] { "Id", "Description", "Name", "Price" },
-                values: new object[,]
-                {
-                    { 1, "d1", "s1", 10m },
-                    { 2, "d2", "s2", 20m },
-                    { 3, "d3", "s3", 30m }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Sessions",
-                columns: new[] { "Id", "DateTime", "Duration", "PlayStationClubUserId", "PlayerNumber", "ReviewId", "RoomId" },
-                values: new object[] { 3, new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0), "16e6ab58-6b4c-42d5-80eb-d33c0dee0273", (byte)6, null, 4 });
-
-            migrationBuilder.InsertData(
-                table: "ServiceSession",
-                columns: new[] { "ServicesId", "SessionsId" },
-                values: new object[,]
-                {
-                    { 1, 3 },
-                    { 2, 3 },
-                    { 3, 3 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Sessions",
-                columns: new[] { "Id", "DateTime", "Duration", "PlayStationClubUserId", "PlayerNumber", "ReviewId", "RoomId" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2022, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0), "16e6ab58-6b4c-42d5-80eb-d33c0dee0273", (byte)2, 1, 1 },
-                    { 2, new DateTime(2022, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 2, 0, 0, 0), "16e6ab58-6b4c-42d5-80eb-d33c0dee0273", (byte)4, 2, 3 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ServiceSession",
-                columns: new[] { "ServicesId", "SessionsId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 2, 2 },
-                    { 3, 2 }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_ServiceSession_SessionsId",
                 table: "ServiceSession",

@@ -16,7 +16,7 @@ namespace PlayStationClub.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.14")
+                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("CategoryGame", b =>
@@ -38,6 +38,26 @@ namespace PlayStationClub.Data.Migrations
                         {
                             CategoriesId = 1,
                             GamesId = 1
+                        },
+                        new
+                        {
+                            CategoriesId = 2,
+                            GamesId = 3
+                        },
+                        new
+                        {
+                            CategoriesId = 2,
+                            GamesId = 4
+                        },
+                        new
+                        {
+                            CategoriesId = 3,
+                            GamesId = 2
+                        },
+                        new
+                        {
+                            CategoriesId = 3,
+                            GamesId = 5
                         });
                 });
 
@@ -248,6 +268,38 @@ namespace PlayStationClub.Data.Migrations
                             ImageId = 1,
                             Name = "mortal kombat 11",
                             PlayersNumber = (byte)2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Ну тут опис гри CyberPunk бла-бла-бла ...",
+                            ImageId = 6,
+                            Name = "CyberPunk",
+                            PlayersNumber = (byte)10
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Ну тут опис гри FIFA2020 бла-бла-бла ...",
+                            ImageId = 9,
+                            Name = "FIFA2020",
+                            PlayersNumber = (byte)2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Ну тут опис гри NinjaWarrior бла-бла-бла ...",
+                            ImageId = 8,
+                            Name = "NinjaWarrior",
+                            PlayersNumber = (byte)4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Ну тут опис гри IceAge бла-бла-бла ...",
+                            ImageId = 7,
+                            Name = "IceAge",
+                            PlayersNumber = (byte)2
                         });
                 });
 
@@ -278,31 +330,69 @@ namespace PlayStationClub.Data.Migrations
                         new
                         {
                             Id = 1,
-                            FileName = "game-mortal-kombat"
+                            FileName = "game-mortal-kombat.svg"
                         },
                         new
                         {
                             Id = 2,
-                            FileName = "photo-fight",
+                            FileName = "photo-fight.png",
                             RoomId = 1
                         },
                         new
                         {
                             Id = 4,
-                            FileName = "photo-sports",
+                            FileName = "photo-sports.png",
                             RoomId = 2
                         },
                         new
                         {
                             Id = 3,
-                            FileName = "photo-race",
+                            FileName = "photo-race.png",
                             RoomId = 3
                         },
                         new
                         {
                             Id = 5,
-                            FileName = "photo-team",
+                            FileName = "photo-team.png",
                             RoomId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FileName = "ciberpunk.jpg"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FileName = "IceAge.png"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FileName = "NinjaWarrior.jpg"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FileName = "Pes2020.jpg"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FileName = "MK-11-Aftermath.jpg",
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            FileName = "MK-11-Aftermath-10.jpg",
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            FileName = "MK-11-Aftermath-12.jpg",
+                            RoomId = 1
                         });
                 });
 
@@ -430,29 +520,6 @@ namespace PlayStationClub.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "d1",
-                            Name = "s1",
-                            Price = 10m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "d2",
-                            Name = "s2",
-                            Price = 20m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "d3",
-                            Name = "s3",
-                            Price = 30m
-                        });
                 });
 
             modelBuilder.Entity("PlayStationClub.Data.Entity.Session", b =>
@@ -492,37 +559,6 @@ namespace PlayStationClub.Data.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Sessions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateTime = new DateTime(2022, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Duration = new TimeSpan(0, 1, 0, 0, 0),
-                            PlayStationClubUserId = "16e6ab58-6b4c-42d5-80eb-d33c0dee0273",
-                            PlayerNumber = (byte)2,
-                            ReviewId = 1,
-                            RoomId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateTime = new DateTime(2022, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Duration = new TimeSpan(0, 2, 0, 0, 0),
-                            PlayStationClubUserId = "16e6ab58-6b4c-42d5-80eb-d33c0dee0273",
-                            PlayerNumber = (byte)4,
-                            ReviewId = 2,
-                            RoomId = 3
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DateTime = new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Duration = new TimeSpan(0, 3, 0, 0, 0),
-                            PlayStationClubUserId = "16e6ab58-6b4c-42d5-80eb-d33c0dee0273",
-                            PlayerNumber = (byte)6,
-                            RoomId = 4
-                        });
                 });
 
             modelBuilder.Entity("PlayStationClub.Data.PlayStationClubUser", b =>
@@ -605,38 +641,6 @@ namespace PlayStationClub.Data.Migrations
                     b.HasIndex("SessionsId");
 
                     b.ToTable("ServiceSession");
-
-                    b.HasData(
-                        new
-                        {
-                            ServicesId = 1,
-                            SessionsId = 1
-                        },
-                        new
-                        {
-                            ServicesId = 2,
-                            SessionsId = 2
-                        },
-                        new
-                        {
-                            ServicesId = 3,
-                            SessionsId = 2
-                        },
-                        new
-                        {
-                            ServicesId = 1,
-                            SessionsId = 3
-                        },
-                        new
-                        {
-                            ServicesId = 2,
-                            SessionsId = 3
-                        },
-                        new
-                        {
-                            ServicesId = 3,
-                            SessionsId = 3
-                        });
                 });
 
             modelBuilder.Entity("CategoryGame", b =>
