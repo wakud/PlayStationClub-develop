@@ -41,7 +41,7 @@ namespace PlayStationClub.Pages.Room
             _emailSender = emailSender;
         }
         public IQueryable<Session> Sessions { get; set; }
-        public SessionViewModel SessionViewModel { get; set; }
+        public SessionViewModel SessionVM { get; set; }
 
         [BindProperty]
         public Session Session { get; set; }
@@ -54,22 +54,19 @@ namespace PlayStationClub.Pages.Room
         public async Task<PartialViewResult> OnGetOrderSessionAsync(int roomId)
         {
             Sessions = await _sessionService.GetAllSessionRoomAsync(roomId);
-            SessionViewModel = new SessionViewModel { RoomId = roomId, Sessions = Sessions.ToList() };
+            SessionVM = new SessionViewModel { RoomId = roomId, Sessions = Sessions.ToList() };
             return new PartialViewResult
             {
                 ViewName = "OrderSession",
-                ViewData = new ViewDataDictionary<SessionViewModel>(ViewData, SessionViewModel)
+                ViewData = new ViewDataDictionary<SessionViewModel>(ViewData, SessionVM)
             };
         }
 
-        public async Task<IActionResult> OnPostOrderSessionAsync(DateTime date, int duration, TimeSpan time, int roomId)
+        public async Task<IActionResult> OnPostOrderSessionAsync(DateTime date, int duration, TimeSpan time, int roomId, byte players)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
             string userName = User.Identity.Name;
             var user = _userManager.Users.FirstOrDefault(u => u.UserName == userName);
+            Room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(roomId));
             DateTime dateTime = date + time;
             TimeSpan timeSpan = new(duration, 0, 0);
             Session = new Session
@@ -81,9 +78,8 @@ namespace PlayStationClub.Pages.Room
                 PlayStationClubUserId = user.Id,
                 ReviewId = null
             };
-
-            string message = $"Вы забронировали комнату, игра состоится: " + Session.DateTime.Date.ToString("d") +
-                " в " + Session.DateTime.TimeOfDay.ToString(@"hh\:mm") + " продолжительность " + Session.Duration.ToString(@"hh\:mm") + " часа";
+            string message = $"Вы забронировали сейчас в PlayStation клубе GSTICK сеанс на " + Session.DateTime.Date.ToString("d") +
+                " в " + Session.DateTime.TimeOfDay.ToString(@"hh\:mm") + ". Комната " + Room.Name;
             
             await _sessionService.CreateAsync(Session);
             await _emailSender.SendEmailAsync(user.Email, "Бронирование сеанса совершено успешно.", message);
