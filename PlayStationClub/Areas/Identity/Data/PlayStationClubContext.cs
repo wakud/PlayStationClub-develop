@@ -11,9 +11,6 @@ namespace PlayStationClub.Data
         public PlayStationClubContext(DbContextOptions<PlayStationClubContext> options)
             : base(options)
         {
-            //TODO: це зробив для створення бд без міграції (можна видалити)
-            //Database.EnsureDeleted();     //видалення бд
-            //Database.EnsureCreated();     //створення БД
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -10,7 +10,7 @@ using PlayStationClub.Data;
 namespace PlayStationClub.Data.Migrations
 {
     [DbContext(typeof(PlayStationClubDbContext))]
-    [Migration("20220519192210_init")]
+    [Migration("20220519202333_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
