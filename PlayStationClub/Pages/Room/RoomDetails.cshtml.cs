@@ -69,6 +69,19 @@ namespace PlayStationClub.Pages.Room
             Room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(roomId));
             DateTime dateTime = date + time;
             TimeSpan timeSpan = new(duration, 0, 0);
+            //TODO:futomaper
+            SessionVM = new SessionViewModel
+            {
+                DateTime = dateTime,
+                Duration = duration,
+                PlayerNumber = 1,
+                RoomId = roomId,
+                RoomName = Room.Name,
+                PlayStationClubUserId = user.Id,
+                ReviewId = null
+            };
+
+            //----------------------------------------
             Session = new Session
             {
                 DateTime = dateTime,

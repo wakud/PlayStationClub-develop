@@ -12,7 +12,7 @@ namespace PlayStationClub.Infrastructure.ViewModels
         public int? RoomId { get; set; }
         public string PlayStationClubUserId { get; set; }
         public int? ReviewId { get; set; }
-        public string? Room { get; set; }
+        public string? RoomName { get; set; }
 
 
         public List<Session> Sessions { get; set; }

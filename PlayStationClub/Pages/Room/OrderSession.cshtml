@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group">
                         <label class="text-light">Длительность</label>
-                        <select name="duration" class="form-control" required>
+                        <select id="duration" name="duration" class="form-control" required>
                             <option id="continuance" value="" selected>Выберите длительность</option>
                             <option value="1" >1 час</option>
                             <option value="2" >2 часа</option>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label class="text-light">Время</label>
-                        <input id="timepicker" name="time" class="form-control" type="time" placeholder="Выберите время" required />
+                        <input id="timepicker" name="time" type="text" class="form-control" placeholder="Выберите время" required />
                     </div>
                     <div class="form-group">
                         <button id="submit" type="submit" class="btn btn-danger btn-block">Забронировать</button>
@@ -47,32 +47,55 @@
     </div>
 </div>
 
-  
 <script>
 $(document).ready(function() {
-    ////-- Datepicker --
-    $(function () {
-        $("#datepicker").datepicker({
-            //numberOfMonths: 2,
-            //showButtonPanel: true,
-            minDate: 0,
-            maxDate: "+30D"
-        });
+    let select_date;
+    let weekdaysTimeStart = '8am';
+    let weekdaysTimeEnd = '22pm';
+    let weekendsTimeStart = '9am';
+    let weekendsTimeEnd = '00am';
+    
+    let allowTimes = [];
+
+    let date_selected = false;
+    let duration_selected = false;
+    //-- Timepicker --
+    $('#timepicker').timepicker({
+        step: 60,
+        disableTimeRanges: [
+            ['1am', '2am'],
+            ['3am', '4:01am']
+        ],
+        minTime: weekdaysTimeStart,
+        maxTime: weekdaysTimeEnd,
+        timeFormat: 'H:i',
+    });
+    
+    //-- Datepicker --
+    $('#datepicker').datepicker({
+        minDate: 0,
+        maxDate: "+30D"
     });
 
-    let datePicker = $('#datepicker').val();
-    let continuance = $('#continuance').val();
-    //Провкряем вибрана дата
-    if (datePicker == "") {
-        $('#timepicker').prop('disabled', true);    //блокируем выбор времени если нет
-    }
-    $('#datepicker').on('change', () => $('#timepicker').prop('disabled', false));
-
-    //TODO:сцука не працює
-    if (continuance == "") {
-        $('#timepicker').prop('disabled', true);
-    }
-    $('#continuance').on('change', () => $('#timepicker').prop('disabled', false));
+    //lock timepicker
+    $('#timepicker').prop('disabled', true);    
+    //unlock timepicker
+    $('#datepicker').on('change', () => {
+        if ($('#datepicker').val()) date_selected = true;
+        select_date = $('#datepicker').val();
+        let weekday = new Date(select_date.replace(/(\d+).(\d+).(\d+)/,"$3/$2/$1"));
+        //console.log(weekday.getDay());
+        if (date_selected && duration_selected) {
+            $('#timepicker').prop('disabled', false)
+        }
+    });
+    $('#duration').on('change', () => {
+        if ($('#duration').val()) duration_selected = true;
+        
+        if (date_selected && duration_selected) {
+            $('#timepicker').prop('disabled', false)
+        }
+    });
 });
 </script>
 
