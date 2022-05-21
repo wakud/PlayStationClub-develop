@@ -49,6 +49,8 @@
 
 <script>
 $(document).ready(function() {
+    let date_selected = false;
+    let duration_selected = false;
     let select_date;
     let weekdaysTimeStart = '8am';
     let weekdaysTimeEnd = '22pm';
@@ -57,19 +59,7 @@ $(document).ready(function() {
     
     let allowTimes = [];
 
-    let date_selected = false;
-    let duration_selected = false;
-    //-- Timepicker --
-    $('#timepicker').timepicker({
-        step: 60,
-        disableTimeRanges: [
-            ['1am', '2am'],
-            ['3am', '4:01am']
-        ],
-        minTime: weekdaysTimeStart,
-        maxTime: weekdaysTimeEnd,
-        timeFormat: 'H:i',
-    });
+    
     
     //-- Datepicker --
     $('#datepicker').datepicker({
@@ -83,8 +73,32 @@ $(document).ready(function() {
     $('#datepicker').on('change', () => {
         if ($('#datepicker').val()) date_selected = true;
         select_date = $('#datepicker').val();
-        let weekday = new Date(select_date.replace(/(\d+).(\d+).(\d+)/,"$3/$2/$1"));
-        //console.log(weekday.getDay());
+        let dayOfWeek = new Date(select_date.replace(/(\d+).(\d+).(\d+)/,"$3/$2/$1")).getDay();
+        //-- Timepicker --
+        $('#timepicker').timepicker({
+            step: 60,
+            disableTimeRanges: [
+                ['1am', '2am'],
+                ['3am', '4:01am']
+            ],
+            timeFormat: 'H:i',
+            //TODO: тут ловимо помилку
+            minTime: function (select_date) {
+                if (dayOfWeek == 0 || dayOfWeek == 6) {
+                    return weekendsTimeStart;
+                } else {
+                    return weekdaysTimeStart;
+                }
+            },
+            maxTime: function (select_date) {
+                if (dayOfWeek == 0 || dayOfWeek == 6) {
+                    return weekendsTimeEnd;
+                } else {
+                    return weekdaysTimeEnd;
+                }
+            }
+        });
+        //console.log(dayOfWeek);
         if (date_selected && duration_selected) {
             $('#timepicker').prop('disabled', false)
         }
