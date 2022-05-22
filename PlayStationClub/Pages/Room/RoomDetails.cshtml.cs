@@ -42,10 +42,8 @@ namespace PlayStationClub.Pages.Room
         }
         public IQueryable<Session> Sessions { get; set; }
         public SessionViewModel SessionVM { get; set; }
-
         [BindProperty]
         public Session Session { get; set; }
-
         public async Task OnGet(int id)
         {
             Room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(id));
@@ -54,7 +52,21 @@ namespace PlayStationClub.Pages.Room
         public async Task<PartialViewResult> OnGetOrderSessionAsync(int roomId)
         {
             Sessions = await _sessionService.GetAllSessionRoomAsync(roomId);
-            SessionVM = new SessionViewModel { RoomId = roomId, Sessions = Sessions.ToList() };
+            Dictionary<string, List<string>> dictionary = new();
+            foreach (var session in Sessions)
+            {
+                if (!dictionary.TryGetValue(session.DateTime.Date.ToString("d"), out List<string> list))
+                {
+                    list = new List<string>();
+                    dictionary.Add(session.DateTime.Date.ToString("d"), list);
+                }
+                var sessionStart = session.DateTime.TimeOfDay;
+                var sessionEnd = session.DateTime.TimeOfDay + session.Duration;
+                list.Add(sessionStart.ToString(@"hh\:mm"));
+                list.Add(sessionEnd.ToString(@"hh\:mm"));
+            }
+
+            SessionVM = new SessionViewModel { RoomId = roomId, DictionarySessions = dictionary };
             return new PartialViewResult
             {
                 ViewName = "OrderSession",
@@ -69,19 +81,6 @@ namespace PlayStationClub.Pages.Room
             Room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(roomId));
             DateTime dateTime = date + time;
             TimeSpan timeSpan = new(duration, 0, 0);
-            //TODO:futomaper
-            SessionVM = new SessionViewModel
-            {
-                DateTime = dateTime,
-                Duration = duration,
-                PlayerNumber = 1,
-                RoomId = roomId,
-                RoomName = Room.Name,
-                PlayStationClubUserId = user.Id,
-                ReviewId = null
-            };
-
-            //----------------------------------------
             Session = new Session
             {
                 DateTime = dateTime,
@@ -99,5 +98,7 @@ namespace PlayStationClub.Pages.Room
 
             return RedirectToPage("/Index");
         }
+
+
     }
 }

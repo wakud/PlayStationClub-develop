@@ -76,8 +76,12 @@ namespace PlayStationClub.Areas.Identity.Pages.Account.Manage
             };
         }
 
-        public async Task<IActionResult> OnPostReviewAsync(int sessionsId, DateTime dateTime, string comments, byte starCount)
+        public async Task<IActionResult> OnPostReviewAsync(int sessionsId, DateTime dateTime, string? comments, byte starCount)
         {
+            if (comments == null)
+            {
+                comments = "";
+            }
             Review = new Review
             {
                 Rating = starCount,

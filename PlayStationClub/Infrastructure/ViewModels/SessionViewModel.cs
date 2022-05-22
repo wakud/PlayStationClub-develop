@@ -14,7 +14,6 @@ namespace PlayStationClub.Infrastructure.ViewModels
         public int? ReviewId { get; set; }
         public string? RoomName { get; set; }
 
-
-        public List<Session> Sessions { get; set; }
+        public Dictionary<string, List<string>> DictionarySessions { get; set; }
     }
 }
