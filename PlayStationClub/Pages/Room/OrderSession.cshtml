@@ -9,7 +9,7 @@
     <div class="modal-body">
         <div class="modal-body__content game-details">
             <div class="game-details__content">
-                <form asp-page="/Room/RoomDetails" method="post" asp-page-handler="OrderSession">
+                <form asp-page="/Room/RoomDetails" method="post" asp-page-handler="OrderSession" onsubmit="alert('Вы удачно забронировали комнату!')" >
                     <h4 class="text-white-50">БРОНИРОВАНИЕ СЕАНСА</h4>
                     <br />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
