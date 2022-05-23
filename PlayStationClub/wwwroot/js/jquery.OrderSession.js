@@ -1,14 +1,13 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-/*
+/* /*
 	Система загружает выпадающий список с доступным временем начала сеанса исходя из ранее указанных Пользователем данных:
 	Дата заказа и длительность, а также график работы клуба.
 */
-//Относительно графика работы клуба выставляем 
-//Минимальное время работы клуба
+/*
+const weekdaysTimeStart = '08';
+const weekdaysTimeEnd = '22';
+const weekendsTimeStart = '09';
+const weekendsTimeEnd = '23:59';
+
 function getMinTime (select_date, dayOfWeek) {
     if (dayOfWeek == 0 || dayOfWeek == 6) {
         return weekendsTimeStart;
@@ -16,7 +15,7 @@ function getMinTime (select_date, dayOfWeek) {
         return weekdaysTimeStart;
     }
 }
-//Максимальное время работы клуба
+
 function getMaxTime (select_date, dayOfWeek) {
     if (dayOfWeek == 0 || dayOfWeek == 6) {
         return weekendsTimeEnd;
@@ -24,7 +23,31 @@ function getMaxTime (select_date, dayOfWeek) {
         return weekdaysTimeEnd;
     }
 }
-//получение занятых часов с БД
+
+function getDisabledTimes (busyTimes, select_date) {
+    let res = [];
+    if (select_date == '@DateTime.Now.Date.ToString("d")') {
+        let startTime = '08:00';
+        if (@DateTime.Now.TimeOfDay.Hours > 8) {
+            let endTime = '@DateTime.Now.TimeOfDay.ToString(@"hh\:mm")';
+            res.push([startTime, endTime]);
+        }
+    }
+    if (!busyTimes[select_date]) {
+        return res
+    } else {
+        let times = busyTimes[select_date];
+        for (let i = 0; i <= times.length - 2; i+=2) {
+            res.push(
+                [
+                    times[i], times[i + 1]
+                ]
+            );
+        }
+        return res;
+    }
+};
+
 function addDurationLockedIntervals (select_date, dayOfWeek, disableTimeRanges, duration) {
     if (!disableTimeRanges) {
         return disableTimeRanges;
@@ -71,42 +94,18 @@ function addDurationLockedIntervals (select_date, dayOfWeek, disableTimeRanges, 
             added.push([time.toString(), nextTime.toString()]);
         }
     }
+    console.log(disableTimeRanges);
+    console.log(added);
     return disableTimeRanges.concat(added);
 };
-//Вывод свободных часов относительно длительности
-function getDisabledTimes (busyTimes, select_date) {
-    let res = [];
-    let date = new Date().toLocaleString('en-us', {year: 'numeric', month: '2-digit', day: '2-digit'}).
-        replace(/(\d+)\/(\d+)\/(\d+)/, '$2.$1.$3');
-    let time = new Date();
-    if (select_date == date) {
-        let startTime = '08:00';
-        if (("0" + time.getHours()).slice(-2) > 8) {
-            let endTime = ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2);
-            res.push([startTime, endTime]);
-        }
-    }
-    if (!busyTimes[select_date]) {
-        return res
-    } else {
-        let times = busyTimes[select_date];
-        for (let i = 0; i <= times.length - 2; i+=2) {
-            res.push(
-                [
-                    times[i], times[i + 1]
-                ]
-            );
-        }
-        return res;
-    }
-};
 
-//вывод Timepicker
 function generateTimePicker(busyTimes) {
     select_date = $('#datepicker').val();
     let dayOfWeek = new Date(select_date.replace(/(\d+).(\d+).(\d+)/,"$3/$2/$1")).getDay();
+    console.log("select_date - " + select_date);
     let disableTimeRanges = getDisabledTimes(busyTimes, select_date);
     disableTimeRanges = addDurationLockedIntervals(select_date, dayOfWeek, disableTimeRanges, $('#duration').val());
+    console.log(disableTimeRanges);
     //-- Timepicker --
     $('#timepicker').timepicker({
         step: 60,
@@ -117,28 +116,45 @@ function generateTimePicker(busyTimes) {
     });
 }
 
-$(document).ready(function () {
-//МОДАЛЬНОЕ ОКНО
-	GetGameDetails = (url) => {
-        try {
-            $.ajax({
-                type: 'GET',
-                url: url,
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    $('#dialogContent').html(res);
-                    $('#Modal').modal('show');
-                },
-                error: function (err) {
-                    console.log(err)
-                }
-            })
-            return false;
-        } catch (ex) {
-            console.log(ex)
+$(document).ready(function() {
+    let date_selected = false;
+    let duration_selected = false;
+    let select_date;
+  
+    let textDisableTimeRanges = "";
+    const busyTimes = {};
+    @foreach (var data in Model.DictionarySessions) {
+        @:busyTimes['@data.Key'] = [];
+        foreach (var item in data.Value)
+        {
+            @:busyTimes['@data.Key'].push('@item');
         }
     }
-});
+    
+    //-- Datepicker --
+    $('#datepicker').datepicker({
+        minDate: 0,
+        maxDate: "+30D"
+    });
 
-
+    //lock timepicker
+    $('#timepicker').prop('disabled', true);    
+    //unlock timepicker
+    $('#datepicker').on('change', () => {
+        if ($('#datepicker').val()) date_selected = true;
+        //console.log(dayOfWeek);
+        if (date_selected && duration_selected) {
+            generateTimePicker(busyTimes);
+            $('#timepicker').prop('disabled', false)
+        }
+    });
+    $('#duration').on('change', () => {
+        if ($('#duration').val()) duration_selected = true;
+        
+        if (date_selected && duration_selected) {
+            generateTimePicker(busyTimes);
+            $('#timepicker').prop('disabled', false)
+        }
+    });
+}); 
+*/
