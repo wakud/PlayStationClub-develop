@@ -44,9 +44,18 @@ namespace PlayStationClub.Pages.Room
         public SessionViewModel SessionVM { get; set; }
         [BindProperty]
         public Session Session { get; set; }
+
         public async Task OnGet(int id)
         {
-            Room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(id));
+            var room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(id));
+            Room = new RoomViewModel{ 
+                Id = room.Id,
+                Images = room.Images.Reverse().Take(3).Reverse(),
+                Description = room.Description,
+                Name = room.Name,
+                PlayersNumber = room.PlayersNumber,
+                Price = room.Price
+            };
         }
 
         public async Task<PartialViewResult> OnGetOrderSessionAsync(int roomId)
@@ -98,7 +107,5 @@ namespace PlayStationClub.Pages.Room
 
             return RedirectToPage("./RoomDetails");
         }
-
-
     }
 }
