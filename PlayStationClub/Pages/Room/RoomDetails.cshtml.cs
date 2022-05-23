@@ -52,6 +52,7 @@ namespace PlayStationClub.Pages.Room
         public async Task<PartialViewResult> OnGetOrderSessionAsync(int roomId)
         {
             Sessions = await _sessionService.GetAllSessionRoomAsync(roomId);
+            Room = _mapper.Map<RoomViewModel>(await _roomService.GetByIdAsync(roomId));
             Dictionary<string, List<string>> dictionary = new();
             foreach (var session in Sessions)
             {
@@ -65,8 +66,7 @@ namespace PlayStationClub.Pages.Room
                 list.Add(sessionStart.ToString(@"hh\:mm"));
                 list.Add(sessionEnd.ToString(@"hh\:mm"));
             }
-
-            SessionVM = new SessionViewModel { RoomId = roomId, DictionarySessions = dictionary };
+            SessionVM = new SessionViewModel { RoomId = roomId, DictionarySessions = dictionary, PlayerNumber = Room.PlayersNumber };
             return new PartialViewResult
             {
                 ViewName = "OrderSession",
@@ -96,7 +96,7 @@ namespace PlayStationClub.Pages.Room
             await _sessionService.CreateAsync(Session);
             await _emailSender.SendEmailAsync(user.Email, "Бронирование сеанса совершено успешно.", message);
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("./RoomDetails");
         }
 
 
